@@ -253,6 +253,23 @@
       display: flex;
       align-items: center;
     }
+
+    /* Bottom Sticky Action Bar */
+    .bottom-action-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: #ffffff;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 32px;
+      gap: 12px;
+      z-index: 10;
+    }
   </style>
 </head>
 <body>
@@ -843,6 +860,12 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Bottom Action Bar -->
+  <div class="bottom-action-bar">
+    <button class="btn-flat" type="button">Cancel</button>
+    <button class="btn-primary" type="button">Create & save</button>
   </div>
 
   <script>
