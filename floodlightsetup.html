@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display & Video 360 - Advertiser Dashboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            font-size: 13px;
+            color: #202124;
+        }
+
+        body {
+            background-color: #ffffff;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Top Navbar */
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: #ffffff;
+            border-bottom: 1px solid #dadce0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 100;
+        }
+
+        .top-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            padding: 8px;
+            color: #5f6368;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #5f6368;
+        }
+
+        .brand-logo svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 12px;
+            color: #5f6368;
+        }
+
+        .breadcrumb-subtitle {
+            font-size: 10px;
+            color: #70757a;
+        }
+
+        .breadcrumb-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #202124;
+        }
+
+        .top-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-icon {
+            color: #5f6368;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-avatar {
+            width: 28px;
+            height: 28px;
+            background-color: #4285f4;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        /* Left Collapsible Sidebar */
+        .sidebar {
+            width: 220px;
+            background: #f8f9fa;
+            border-right: 1px solid #dadce0;
+            margin-top: 48px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding-top: 8px;
+        }
+
+        details.nav-group {
+            width: 100%;
+            margin-bottom: 2px;
+        }
+
+        summary.nav-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            color: #3c4043;
+            font-weight: 500;
+            cursor: pointer;
+            list-style: none;
+            user-select: none;
+            position: relative;
+        }
+
+        summary.nav-header.resources-header {
+            color: #0f9d58;
+        }
+
+        summary.nav-header::-webkit-details-marker {
+            display: none;
+        }
+
+        summary.nav-header::before {
+            content: "▾";
+            font-size: 10px;
+            color: #5f6368;
+            position: absolute;
+            left: 6px;
+            transition: transform 0.2s;
+        }
+
+        details[open] > summary.nav-header::before {
+            transform: rotate(0deg);
+        }
+
+        details:not([open]) > summary.nav-header::before {
+            transform: rotate(-90deg);
+        }
+
+        summary.nav-header:hover {
+            background-color: #f1f3f4;
+        }
+
+        .standalone-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px 8px 24px;
+            color: #3c4043;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .standalone-item:hover {
+            background-color: #f1f3f4;
+        }
+
+        .standalone-item.active {
+            background-color: #e8f0fe;
+            color: #1a73e8;
+            border-radius: 0 20px 20px 0;
+            margin-right: 8px;
+        }
+
+        .sub-menu {
+            display: flex;
+            flex-direction: column;
+            padding-left: 44px;
+            padding-top: 2px;
+            padding-bottom: 4px;
+        }
+
+        .sub-item {
+            padding: 6px 8px;
+            color: #3c4043;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 13px;
+            border-radius: 0 16px 16px 0;
+            margin-right: 8px;
+        }
+
+        .sub-item:hover {
+            color: #1a73e8;
+        }
+
+        .sub-item.active {
+            color: #202124;
+            background-color: #e6f4ea;
+            font-weight: 500;
+        }
+
+        /* Main Workspace Container */
+        .workspace {
+            flex: 1;
+            margin-top: 48px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            background: #ffffff;
+        }
+
+        .view-section {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .view-section.active {
+            display: flex;
+        }
+
+        .workspace-header {
+            padding: 16px 24px 0 24px;
+            position: relative;
+        }
+
+        .breadcrumb-link {
+            color: #1a73e8;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 12px;
+            margin-bottom: 4px;
+            display: inline-block;
+        }
+
+        .workspace-title {
+            font-size: 22px;
+            font-weight: 400;
+            color: #202124;
+            margin-bottom: 16px;
+        }
+
+        .feedback-icon {
+            position: absolute;
+            top: 16px;
+            right: 24px;
+            background: #5f6368;
+            color: white;
+            padding: 4px 6px;
+            border-radius: 2px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 24px;
+            border-bottom: 1px solid #dadce0;
+        }
+
+        .tab {
+            padding: 8px 0;
+            color: #5f6368;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.3px;
+        }
+
+        .tab.active {
+            color: #0f9d58;
+            border-bottom: 2px solid #0f9d58;
+        }
+
+        .tab-campaign.active {
+            color: #1a73e8;
+            border-bottom: 2px solid #1a73e8;
+        }
+
+        .action-bar {
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn-green {
+            background-color: #0f9d58;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            padding: 8px 12px;
+            font-weight: 500;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        .btn-primary {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-date {
+            background: #ffffff;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            padding: 6px 12px;
+            cursor: pointer;
+            color: #3c4043;
+            margin-left: 12px;
+        }
+
+        .filter-bar {
+            padding: 8px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-top: 1px solid #f1f3f4;
+            border-bottom: 1px solid #dadce0;
+            background: #ffffff;
+        }
+
+        .filter-label {
+            color: #5f6368;
+        }
+
+        .filter-chip {
+            background: #e8eaed;
+            color: #3c4043;
+            border-radius: 16px;
+            padding: 4px 10px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .filter-input-text {
+            color: #5f6368;
+            cursor: pointer;
+        }
+
+        .filter-input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 4px;
+            color: #5f6368;
+        }
+
+        .table-container {
+            flex: 1;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            padding: 10px 16px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #5f6368;
+            border-bottom: 1px solid #dadce0;
+            background-color: #fafafa;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e8eaed;
+            color: #3c4043;
+            font-size: 12px;
+        }
+
+        .status-dot {
+            height: 8px;
+            width: 8px;
+            background-color: #1e8e3e;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .grey-dot {
+            height: 8px;
+            width: 8px;
+            background-color: #9e9e9e;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .activity-link {
+            color: #1a73e8;
+            cursor: pointer;
+        }
+
+        .activity-id {
+            color: #70757a;
+            font-size: 11px;
+            margin-left: 16px;
+        }
+
+        .campaign-name {
+            color: #1a73e8;
+            cursor: pointer;
+        }
+
+        .campaign-id {
+            color: #70757a;
+            font-size: 11px;
+            margin-left: 8px;
+        }
+
+        .numeric {
+            text-align: right;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 12px 24px;
+            gap: 16px;
+            color: #5f6368;
+            font-size: 12px;
+            border-top: 1px solid #f1f3f4;
+        }
+
+        /* Detail View Card Styling */
+        .details-container {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: #ffffff;
+        }
+
+        .detail-card {
+            border: 1px solid #dadce0;
+            border-radius: 2px;
+            background: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            padding: 20px 24px;
+        }
+
+        .card-row {
+            display: flex;
+            padding: 10px 0;
+        }
+
+        .card-row:not(:last-child) {
+            border-bottom: 1px solid #f1f3f4;
+        }
+
+        .card-label {
+            width: 220px;
+            font-weight: 500;
+            color: #202124;
+            font-size: 13px;
+        }
+
+        .card-value {
+            flex: 1;
+            color: #3c4043;
+            font-size: 13px;
+        }
+
+        .key-value-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .key-value-item {
+            display: flex;
+            gap: 16px;
+        }
+
+        .key-value-label {
+            width: 240px;
+            color: #3c4043;
+        }
+
+        .key-value-val {
+            color: #202124;
+            font-family: Roboto, Arial, sans-serif;
+        }
+
+        .link-text {
+            color: #1a73e8;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .code-box {
+            background-color: #fafafa;
+            border: 1px solid #dadce0;
+            border-radius: 2px;
+            padding: 12px 16px;
+            font-family: "Roboto Mono", Consolas, Monaco, monospace;
+            font-size: 11px;
+            color: #5f6368;
+            line-height: 1.5;
+            white-space: pre;
+            overflow-x: auto;
+            margin-top: 12px;
+            margin-bottom: 12px;
+        }
+
+        .snippet-note {
+            font-size: 12px;
+            color: #5f6368;
+            margin-top: 4px;
+        }
+
+        /* Fixed Far-Right Action Icons */
+        .right-system-bar {
+            width: 40px;
+            background: #ffffff;
+            border-left: 1px solid #dadce0;
+            margin-top: 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 12px;
+            gap: 16px;
+        }
+
+        /* New Floodlight Activity Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #f8f9fa;
+            z-index: 200;
+            display: none;
+            flex-direction: column;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-header {
+            height: 56px;
+            background: #ffffff;
+            border-bottom: 1px solid #dadce0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+
+        .modal-title-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .close-btn {
+            font-size: 20px;
+            color: #5f6368;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 400;
+            color: #202124;
+        }
+
+        .modal-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .modal-body {
+            flex: 1;
+            padding: 16px 24px;
+            border-bottom: 1px solid #dadce0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background: #f8f9fa;
+        }
+
+        .options-grid {
+            display: flex;
+            gap: 16px;
+        }
+
+        .option-card {
+            width: 220px;
+            height: 220px;
+            background: #ffffff;
+            border: 1px solid #dadce0;
+            border-radius: 2px;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .option-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            border-color: #bdc1c6;
+        }
+
+        .card-icon-area {
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fafafa;
+            border-bottom: 1px solid #f1f3f4;
+        }
+
+        .circle-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circle-icon.blue {
+            background: #4285f4;
+        }
+
+        .circle-icon.green {
+            background: #34a853;
+        }
+
+        .device-svg {
+            width: 44px;
+            height: 44px;
+            fill: #ffffff;
+        }
+
+        .card-content {
+            padding: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #202124;
+            margin-bottom: 6px;
+        }
+
+        .card-desc {
+            font-size: 11px;
+            color: #70757a;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation Bar -->
+    <header class="top-navbar">
+        <div class="top-nav-left">
+            <span class="menu-icon">☰</span>
+            <div class="brand-logo">
+                <svg viewBox="0 0 24 24" fill="#34A853"><path d="M8 5v14l11-7z"/></svg>
+                Display & Video 360
+            </div>
+            <div class="breadcrumb">
+                <span>&gt;</span>
+                <div>
+                    <div class="breadcrumb-subtitle">Advertiser</div>
+                    <div class="breadcrumb-title" id="breadcrumb-adv-title">Test Advertiser - Do not use</div>
+                </div>
+            </div>
+        </div>
+        <div class="top-nav-right">
+            <span class="nav-icon">🔍</span>
+            <span class="nav-icon">👥</span>
+            <span class="nav-icon">☑️</span>
+            <span class="nav-icon">📊</span>
+            <span class="nav-icon">❓</span>
+            <span class="nav-icon">⚙️</span>
+            <div class="user-avatar">K</div>
+        </div>
+    </header>
+
+    <div style="display: flex; width: 100%;">
+        
+        <!-- Collapsible Accordion Navigation Sidebar -->
+        <nav class="sidebar">
+            <a class="standalone-item" id="campaigns-btn">
+                <span>🎯</span> Campaigns
+            </a>
+
+            <!-- Audiences Dropdown Section -->
+            <details class="nav-group">
+                <summary class="nav-header">
+                    <span>👥</span> Audiences
+                </summary>
+                <div class="sub-menu">
+                    <a class="sub-item">All audiences</a>
+                    <a class="sub-item">Analysis</a>
+                </div>
+            </details>
+
+            <!-- Creative Dropdown Section -->
+            <details class="nav-group">
+                <summary class="nav-header">
+                    <span>🖼️</span> Creative
+                </summary>
+                <div class="sub-menu">
+                    <a class="sub-item">Creatives</a>
+                    <a class="sub-item">Preview sheets</a>
+                    <a class="sub-item">Format gallery</a>
+                    <a class="sub-item">Appeal history</a>
+                </div>
+            </details>
+
+            <!-- Inventory Dropdown Section -->
+            <details class="nav-group" open>
+                <summary class="nav-header">
+                    <span>📋</span> Inventory
+                </summary>
+                <div class="sub-menu">
+                    <a class="sub-item">Plans</a>
+                    <a class="sub-item">My inventory</a>
+                    <a class="sub-item">Marketplace</a>
+                    <a class="sub-item">Negotiations</a>
+                </div>
+            </details>
+
+            <!-- Insights Dropdown Section -->
+            <details class="nav-group">
+                <summary class="nav-header">
+                    <span>📊</span> Insights
+                </summary>
+                <div class="sub-menu">
+                    <a class="sub-item">Instant & offline</a>
+                    <a class="sub-item">Cross-media reach</a>
+                </div>
+            </details>
+
+            <!-- Resources Dropdown Section -->
+            <details class="nav-group" open>
+                <summary class="nav-header resources-header">
+                    <span>📁</span> Resources
+                </summary>
+                <div class="sub-menu">
+                    <a class="sub-item">Brand Controls</a>
+                    <a class="sub-item">Channels & Keywords</a>
+                    <a class="sub-item active" id="floodlight-btn">Floodlight Group</a>
+                    <a class="sub-item">Triggers</a>
+                    <a class="sub-item">YouTube Extensions</a>
+                    <a class="sub-item">Location Lists</a>
+                </div>
+            </details>
+
+            <a class="standalone-item">
+                <span>⚙️</span> Advertiser settings
+            </a>
+            <a class="standalone-item">
+                <span>🕒</span> History
+            </a>
+        </nav>
+
+        <!-- Main Workspace Area -->
+        <main class="workspace">
+            
+            <!-- VIEW 1: Campaigns View -->
+            <div id="campaigns-view" class="view-section">
+                <div class="workspace-header">
+                    <h1 class="workspace-title">Campaigns</h1>
+                    <div class="tabs">
+                        <div class="tab tab-campaign active">Campaigns</div>
+                        <div class="tab tab-campaign">Insertion orders</div>
+                    </div>
+                </div>
+
+                <div class="action-bar">
+                    <div>
+                        <button class="btn-primary">New campaign</button>
+                        <button class="btn-date">Dec 19, 2024 ▼</button>
+                    </div>
+                    <div>
+                        <span class="nav-icon">🌪️</span>
+                        <span class="nav-icon">⋮</span>
+                    </div>
+                </div>
+
+                <div class="filter-bar">
+                    <span style="color: #1a73e8;">🔍</span>
+                    <div class="filter-chip">
+                        Status: Active <span style="cursor: pointer; margin-left: 4px;">✕</span>
+                    </div>
+                    <input type="text" class="filter-input" placeholder="Enter a search term or select filters">
+                    <span style="cursor: pointer; color: #70757a;">✕</span>
+                </div>
+
+                <!-- Main Table Section -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 30px;"><input type="checkbox"></th>
+                                <th>Campaign</th>
+                                <th>Delivery</th>
+                                <th class="numeric">Budget</th>
+                                <th class="numeric">Spent</th>
+                                <th class="numeric">KPI Goal</th>
+                                <th class="numeric">KPI Actual</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>
+                                    <span class="status-dot"></span>
+                                    <span class="campaign-name">Campaign_Display_Search_2024</span>
+                                    <span class="campaign-id">2385107</span>
+                                </td>
+                                <td>—</td>
+                                <td class="numeric">Unknown</td>
+                                <td class="numeric">A$2,943.38</td>
+                                <td class="numeric">A$30.00 CPA</td>
+                                <td class="numeric">A$0.30 CPA</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>
+                                    <span class="status-dot"></span>
+                                    <span class="campaign-name">AU_Video_Awareness_Q4</span>
+                                    <span class="campaign-id">53987540</span>
+                                </td>
+                                <td>—</td>
+                                <td class="numeric">A$220,000.00</td>
+                                <td class="numeric">A$6,295.74</td>
+                                <td class="numeric">-</td>
+                                <td class="numeric">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <span>Show rows:</span>
+                    <select style="border: 1px solid #dadce0; padding: 2px 4px; border-radius: 4px;">
+                        <option>20</option>
+                        <option>50</option>
+                    </select>
+                    <span>1–2 of 2</span>
+                </div>
+            </div>
+
+            <!-- VIEW 2: Floodlight Group View -->
+            <div id="floodlight-view" class="view-section">
+                <div class="workspace-header">
+                    <h1 class="workspace-title">Floodlight Group</h1>
+                    <span class="feedback-icon">💬</span>
+                    <div class="tabs">
+                        <div class="tab">BASIC DETAILS</div>
+                        <div class="tab active">FLOODLIGHT ACTIVITIES</div>
+                        <div class="tab">HISTORY</div>
+                    </div>
+                </div>
+
+                <div class="action-bar">
+                    <button class="btn-green open-floodlight-modal">NEW FLOODLIGHT ACTIVITY</button>
+                    <div>
+                        <span class="nav-icon">☰</span>
+                    </div>
+                </div>
+
+                <div class="filter-bar">
+                    <span class="filter-label">Filter</span>
+                    <div class="filter-chip">
+                        Status: Active <span style="cursor: pointer; margin-left: 4px;">✕</span>
+                    </div>
+                    <span class="filter-input-text">Add filter</span>
+                    <span style="cursor: pointer; color: #70757a; margin-left: auto;">✕</span>
+                </div>
+
+                <!-- Floodlight Table Section -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 30px;"><input type="checkbox"></th>
+                                <th style="width: 60%;">Floodlight Activity</th>
+                                <th>DV360 Activity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Category Row -->
+                            <tr style="background-color: #f8f9fa;">
+                                <td><input type="checkbox"></td>
+                                <td colspan="2">
+                                    <span class="grey-dot"></span>
+                                    <strong>Web</strong>
+                                    <span style="margin-left: 180px; color: #5f6368;">Status</span>
+                                    <span style="margin-left: 60px; color: #5f6368;">Tracking Source</span>
+                                    <span style="margin-left: 60px; color: #5f6368;">Type</span>
+                                    <span style="margin-left: 60px; color: #5f6368;">Counting Method</span>
+                                    <span style="margin-left: 50px; color: #5f6368;">Remarketing List</span>
+                                    <span style="margin-left: 40px; color: #5f6368;">YouTube Conversion</span>
+                                </td>
+                            </tr>
+                            <!-- Item Row -->
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>
+                                    <span class="status-dot"></span>
+                                    <span style="font-size: 10px; color: #5f6368;">▼</span>
+                                    <span class="activity-link" id="open-activity-detail">Test - Form Submission</span>
+                                    <span class="activity-id">10728948</span>
+                                    <span style="margin-left: 30px;">Active</span>
+                                    <span style="margin-left: 65px;">Global site tag</span>
+                                    <span style="margin-left: 50px;">Counter</span>
+                                    <span style="margin-left: 55px;">Unique</span>
+                                </td>
+                                <td>
+                                    <span>Yes</span>
+                                    <span style="margin-left: 60px;">No</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <span>Show rows:</span>
+                    <select style="border: 1px solid #dadce0; padding: 2px 4px; border-radius: 4px;">
+                        <option selected>100</option>
+                        <option>200</option>
+                    </select>
+                    <span>1 - 1 of 1</span>
+                    <span style="margin-left: 16px; cursor: pointer;">I&lt; &lt; &gt; &gt;I</span>
+                </div>
+            </div>
+
+            <!-- VIEW 3: Floodlight Activity Detailed View (Code Tab) -->
+            <div id="activity-detail-view" class="view-section active">
+                <div class="workspace-header">
+                    <a class="breadcrumb-link" id="back-to-floodlight">Floodlight Group ›</a>
+                    <h1 class="workspace-title">Floodlight Activity</h1>
+                    <span class="feedback-icon">💬</span>
+                    <div class="tabs">
+                        <div class="tab">BASIC DETAILS</div>
+                        <div class="tab active">CODE</div>
+                        <div class="tab">HISTORY</div>
+                    </div>
+                </div>
+
+                <div class="details-container">
+                    <!-- First Card: Name & IDs -->
+                    <div class="detail-card">
+                        <div class="card-row">
+                            <div class="card-label">Name</div>
+                            <div class="card-value">Test - Form Submission</div>
+                        </div>
+                        <div class="card-row">
+                            <div class="card-label">IDs</div>
+                            <div class="card-value">
+                                <div class="key-value-list">
+                                    <div class="key-value-item">
+                                        <span class="key-value-label">Floodlight ID ("src"):</span>
+                                        <span class="key-value-val">10728948</span>
+                                    </div>
+                                    <div class="key-value-item">
+                                        <span class="key-value-label">Activity Group Tag String ("type"):</span>
+                                        <span class="key-value-val">invmedia</span>
+                                    </div>
+                                    <div class="key-value-item">
+                                        <span class="key-value-label">Activity Tag String ("cat"):</span>
+                                        <span class="key-value-val">test-0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Second Card: Global Snippet -->
+                    <div class="detail-card">
+                        <div class="card-row" style="border-bottom: none;">
+                            <div class="card-label">Global snippet</div>
+                            <div class="card-value">
+                                The global site tag sets new cookies on your domain, which will store a unique identifier for a user or the ad click that brought the user to your site. You must install this tag on every page of your website. <a class="link-text">Learn more</a>
+
+                                <div class="code-box">
+&lt;!-- 
+Start of global snippet: Please do not remove
+Place this snippet between the &lt;head&gt; and &lt;/head&gt; tags on every page of your site.
+--&gt;
+&lt;!-- Global site tag (gtag.js) - Google Marketing Platform --&gt;
+&lt;script async src="https://www.googletagmanager.com/gtag/js?id=DC-10728948"&gt;
+&lt;/script&gt;
+&lt;script&gt;
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'DC-10728948');
+&lt;/script&gt;
+&lt;!-- End of global snippet: Please do not remove --&gt;</div>
+                                <div class="snippet-note">Insert the global site tag between the &lt;head&gt; and &lt;/head&gt; tags. The global snippet section should be placed on every page of your site.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Third Card: Event Snippet -->
+                    <div class="detail-card">
+                        <div class="card-row" style="border-bottom: none;">
+                            <div class="card-label">Event snippet</div>
+                            <div class="card-value">
+                                <div class="code-box">
+&lt;!-- 
+Event snippet for Test - Form Submission on : Please do not remove.
+Place this snippet on pages with events you’re tracking.
+Creation date: 03/26/2021
+--&gt;
+&lt;script&gt;
+  gtag('event', 'conversion', {
+    'allow_custom_scripts': true,
+    'send_to': 'DC-10728948/invmedia/test-0+unique'
+  });
+&lt;/script&gt;
+&lt;noscript&gt;
+&lt;img 
+src="https://ad.doubleclick.net/ddm/activity/src=10728948;type=invmedia;cat=test-0;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ord=1;num=1?" width="1" height="1" alt=""/&gt;
+&lt;/noscript&gt;
+&lt;!-- End of event snippet: Please do not remove --&gt;</div>
+                                <div class="snippet-note">The event snippet section should be placed on pages with events you're tracking, after the global snippet.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Tool Drawer Icons Column -->
+        <aside class="right-system-bar">
+            <span class="nav-icon">📝</span>
+            <span class="nav-icon">❓</span>
+            <span class="nav-icon">🔄</span>
+        </aside>
+
+    </div>
+
+    <!-- NEW FLOODLIGHT ACTIVITY OVERLAY DISPLAY -->
+    <div id="create-activity-modal" class="modal-overlay">
+        <div class="modal-header">
+            <div class="modal-title-container">
+                <span class="close-btn" id="close-modal-btn">✕</span>
+                <h2 class="modal-title">New Floodlight activity</h2>
+            </div>
+            <div class="modal-actions">
+                <span class="nav-icon">💬</span>
+                <span class="nav-icon">❓</span>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="options-grid">
+                <!-- Web Option Card -->
+                <div class="option-card">
+                    <div class="card-icon-area">
+                        <div class="circle-icon blue">
+                            <svg class="device-svg" viewBox="0 0 24 24">
+                                <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 5c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 5h16v11H4V5z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">Web</div>
+                        <div class="card-desc">Track visits, purchases and other events on an Advertiser's website.</div>
+                    </div>
+                </div>
+
+                <!-- Mobile App Option Card -->
+                <div class="option-card">
+                    <div class="card-icon-area">
+                        <div class="circle-icon green">
+                            <svg class="device-svg" viewBox="0 0 24 24">
+                                <path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">Mobile app</div>
+                        <div class="card-desc">Track installs, purchases and other activities on an Advertiser's app.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Navigation & Interaction Handling -->
+    <script>
+        const floodlightBtn = document.getElementById('floodlight-btn');
+        const campaignsBtn = document.getElementById('campaigns-btn');
+        
+        const floodlightView = document.getElementById('floodlight-view');
+        const campaignsView = document.getElementById('campaigns-view');
+        const activityDetailView = document.getElementById('activity-detail-view');
+
+        const openActivityDetail = document.getElementById('open-activity-detail');
+        const backToFloodlight = document.getElementById('back-to-floodlight');
+
+        const createActivityModal = document.getElementById('create-activity-modal');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const openModalButtons = document.querySelectorAll('.open-floodlight-modal');
+
+        function hideAllViews() {
+            campaignsView.classList.remove('active');
+            floodlightView.classList.remove('active');
+            activityDetailView.classList.remove('active');
+        }
+
+        /* Nav Click: Floodlight Group */
+        floodlightBtn.addEventListener('click', () => {
+            hideAllViews();
+            floodlightView.classList.add('active');
+            campaignsBtn.classList.remove('active');
+            floodlightBtn.classList.add('active');
+        });
+
+        /* Nav Click: Campaigns */
+        campaignsBtn.addEventListener('click', () => {
+            hideAllViews();
+            campaignsView.classList.add('active');
+            floodlightBtn.classList.remove('active');
+            campaignsBtn.classList.add('active');
+        });
+
+        /* Activity Click: Open Code Detail View */
+        openActivityDetail.addEventListener('click', () => {
+            hideAllViews();
+            activityDetailView.classList.add('active');
+        });
+
+        /* Breadcrumb Click: Back to Floodlight Group */
+        backToFloodlight.addEventListener('click', () => {
+            hideAllViews();
+            floodlightView.classList.add('active');
+        });
+
+        /* Open/Close Modal */
+        openModalButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                createActivityModal.classList.add('active');
+            });
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            createActivityModal.classList.remove('active');
+        });
+    </script>
+
+</body>
+</html>
