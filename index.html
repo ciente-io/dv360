@@ -215,8 +215,8 @@
         }
 
         .sub-item.active {
-            color: #202124;
-            background-color: #e6f4ea;
+            color: #ffffff;
+            background-color: #1a73e8;
             font-weight: 500;
         }
 
@@ -494,8 +494,8 @@
                 <div>
                     <div class="breadcrumb-subtitle">Advertiser</div>
                     <a href="CampaignLevel.html" style="text-decoration: none; color: inherit;">
-  <div class="breadcrumb-title">Adbell Media</div>
-</a>
+                        <div class="breadcrumb-title">Adbell Media</div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -549,7 +549,7 @@
                     <span>📋</span> Inventory
                 </summary>
                 <div class="sub-menu">
-                    <a class="sub-item">Plans</a>
+                    <a class="sub-item" id="plans-btn">Plans</a>
                     <a class="sub-item">My inventory</a>
                     <a class="sub-item">Marketplace</a>
                     <a class="sub-item">Negotiations</a>
@@ -613,10 +613,9 @@
 
                 <div class="action-bar">
                     <div>
-            <a href="new-campaign.html" style="text-decoration: none;">
-    <button class="btn-primary">New campaign</button>
-</a>
-                        
+                        <a href="new-campaign.html" style="text-decoration: none;">
+                            <button class="btn-primary">New campaign</button>
+                        </a>
                         <button class="btn-date">Dec 19, 2024 ▼</button>
                     </div>
                     <div>
@@ -702,13 +701,9 @@
                 </div>
 
                 <div class="action-bar">
-  <a href="floodlight.html" style="text-decoration: none;">
-    <button class="btn-green" type="button">NEW FLOODLIGHT ACTIVITY</button>
-  </a>
-</div>
-                
-                        <span class="nav-icon">☰</span>
-                    </div>
+                    <a href="floodlight.html" style="text-decoration: none;">
+                        <button class="btn-green" type="button">NEW FLOODLIGHT ACTIVITY</button>
+                    </a>
                 </div>
 
                 <div class="filter-bar">
@@ -727,6 +722,39 @@
                 </div>
             </div>
 
+            <!-- VIEW 3: Plans View -->
+            <div id="plans-view" class="view-section">
+                <div class="workspace-header">
+                    <h1 class="workspace-title">Plans</h1>
+                </div>
+
+                <div class="action-bar" style="background-color: #f8f9fa; border-bottom: 1px solid #dadce0;">
+                    <button class="btn-primary">New plan</button>
+                    <span class="nav-icon">🌪️</span>
+                </div>
+
+                <div class="filter-bar">
+                    <span style="color: #5f6368;">🌪️</span>
+                    <input type="text" class="filter-input" placeholder="Enter a search term or select filters">
+                    <span style="cursor: pointer; color: #70757a;">✕</span>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 30px;"><input type="checkbox"></th>
+                                <th>Plan</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table remains empty to match screenshot empty state -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </main>
 
         <!-- Tool Drawer Icons Column -->
@@ -742,27 +770,38 @@
     <script>
         const floodlightBtn = document.getElementById('floodlight-btn');
         const campaignsBtn = document.getElementById('campaigns-btn');
+        const plansBtn = document.getElementById('plans-btn');
+
         const floodlightView = document.getElementById('floodlight-view');
         const campaignsView = document.getElementById('campaigns-view');
+        const plansView = document.getElementById('plans-view');
+
+        function resetActiveStates() {
+            campaignsView.classList.remove('active');
+            floodlightView.classList.remove('active');
+            plansView.classList.remove('active');
+
+            campaignsBtn.classList.remove('active');
+            floodlightBtn.classList.remove('active');
+            plansBtn.classList.remove('active');
+        }
 
         floodlightBtn.addEventListener('click', () => {
-            // Hide campaigns view and show floodlight group view
-            campaignsView.classList.remove('active');
+            resetActiveStates();
             floodlightView.classList.add('active');
-
-            // Toggle active sidebar styles
-            campaignsBtn.classList.remove('active');
             floodlightBtn.classList.add('active');
         });
 
         campaignsBtn.addEventListener('click', () => {
-            // Hide floodlight group view and show campaigns view
-            floodlightView.classList.remove('active');
+            resetActiveStates();
             campaignsView.classList.add('active');
-
-            // Toggle active sidebar styles
-            floodlightBtn.classList.remove('active');
             campaignsBtn.classList.add('active');
+        });
+
+        plansBtn.addEventListener('click', () => {
+            resetActiveStates();
+            plansView.classList.add('active');
+            plansBtn.classList.add('active');
         });
     </script>
 
