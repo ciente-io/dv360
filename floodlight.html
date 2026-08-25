@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Floodlight Activity</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f1f3f4;
+      color: #202124;
+      padding-bottom: 80px; /* Space for sticky bottom bar */
+    }
+
+    /* Top Navigation Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      padding: 0 24px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #dadce0;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: #5f6368;
+      cursor: pointer;
+    }
+
+    .page-title {
+      font-size: 18px;
+      font-weight: 400;
+      color: #202124;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #5f6368;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: #5f6368;
+    }
+
+    /* Form Container Layout */
+    .container {
+      max-width: 900px;
+      margin: 32px auto 0 auto;
+      padding: 0 16px;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      box-shadow: 0 1px 2px 0 rgba(60,64,67,0.1);
+      margin-bottom: 24px;
+    }
+
+    .form-row {
+      display: flex;
+      padding: 24px 32px;
+      border-bottom: 1px solid #e0e0e0;
+      align-items: flex-start;
+    }
+
+    .form-row:last-child {
+      border-bottom: none;
+    }
+
+    .label-col {
+      width: 200px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #3c4043;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding-top: 4px;
+    }
+
+    .info-icon {
+      width: 16px;
+      height: 16px;
+      fill: #5f6368;
+      cursor: pointer;
+    }
+
+    .input-col {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Inputs & Selects */
+    .text-input {
+      width: 320px;
+      border: none;
+      border-bottom: 2px solid #1a73e8;
+      outline: none;
+      padding: 4px 0;
+      font-size: 14px;
+    }
+
+    .status-select {
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      color: #3c4043;
+      cursor: pointer;
+      outline: none;
+      font-weight: 500;
+    }
+
+    /* Radio & Checkbox Groups */
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .radio-option {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .radio-label, .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13.5px;
+      color: #3c4043;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .sub-desc {
+      margin-left: 30px;
+      font-size: 12px;
+      color: #70757a;
+      line-height: 1.4;
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #1a73e8;
+      cursor: pointer;
+    }
+
+    .note-text {
+      margin-top: 8px;
+      margin-left: 30px;
+      font-size: 12px;
+      color: #70757a;
+    }
+
+    /* Section Heading Styles */
+    .section-header {
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: #202124;
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      color: #5f6368;
+      margin-top: 2px;
+    }
+
+    /* Action Icons */
+    .edit-icon {
+      cursor: pointer;
+      fill: #5f6368;
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Additional Settings Link */
+    .additional-settings-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #1a73e8;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 20px;
+      margin-bottom: 32px;
+    }
+
+    .additional-settings-toggle svg {
+      fill: #1a73e8;
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Bottom Action Bar */
+    .bottom-action-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: #ffffff;
+      border-top: 1px solid #dadce0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 32px;
+      z-index: 100;
+    }
+
+    .btn-blue {
+      background-color: #1a73e8;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .btn-blue:hover {
+      background-color: #1557b0;
+    }
+
+    .btn-flat {
+      background: none;
+      border: none;
+      color: #5f6368;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .btn-flat:hover {
+      color: #202124;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header Navigation -->
+  <header class="header">
+    <div class="header-left">
+      <button class="close-btn" aria-label="Close" onclick="window.history.back()">✕</button>
+      <h1 class="page-title">New Floodlight activity</h1>
+    </div>
+    <div class="header-right">
+      <button class="icon-btn" title="Feedback">
+        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/></svg>
+      </button>
+      <button class="icon-btn" title="Help">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm1.07-7.75l-.9.92C12.45 11.9 12 12.5 12 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Form Area -->
+  <div class="container">
+    
+    <!-- SECTION 1 -->
+    <div class="card">
+      
+      <!-- Name Field -->
+      <div class="form-row">
+        <div class="label-col">Name</div>
+        <div class="input-col">
+          <input type="text" class="text-input" autofocus />
+          <select class="status-select">
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Format Field -->
+      <div class="form-row">
+        <div class="label-col">
+          Format
+          <svg class="info-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        </div>
+        <div class="input-col">
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="format" value="global_site_tag"> Global site tag
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="format" value="iframe_tag"> Iframe tag
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="format" value="image_tag"> Image tag
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Type Field -->
+      <div class="form-row">
+        <div class="label-col">
+          Type
+          <svg class="info-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        </div>
+        <div class="input-col">
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="type" value="counter" id="typeCounter"> Counter
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="type" value="sale" id="typeSale"> Sale
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Counting method Field -->
+      <div class="form-row">
+        <div class="label-col">
+          Counting method
+          <svg class="info-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        </div>
+        <div class="input-col">
+          <div class="radio-group" id="countingMethodContainer">
+            <!-- Options dynamically render here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Attribution Field -->
+      <div class="form-row">
+        <div class="label-col">
+          Attribution
+          <svg class="info-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        </div>
+        <div class="input-col" style="flex-direction: column; align-items: flex-start;">
+          <label class="checkbox-label">
+            <input type="checkbox" checked> Enable for attribution
+          </label>
+          <div class="note-text">Note: All attribution will stop for this activity if attribution is disabled.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECTION 2 -->
+    <!-- Personalized ad exclusions Card -->
+    <div class="card">
+      <div class="form-row">
+        <div class="label-col">
+          Personalized ad exclusions
+          <svg class="info-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        </div>
+        <div class="input-col" style="flex-direction: column; align-items: flex-start; gap: 12px;">
+          <div style="font-size: 13.5px; color: #3c4043; margin-bottom: 4px;">Exclude the following locations from personalized ads.</div>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="personalized_exclusions" value="dont_exclude" checked> Don't exclude locations for this activity
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="personalized_exclusions" value="exclude_all"> Exclude all locations for this activity
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Floodlight variables Card -->
+    <div class="card">
+      <div class="form-row">
+        <div class="label-col">
+          Custom Floodlight variables
+          <svg class="info-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        </div>
+        <div class="input-col">
+          <span style="font-size: 13.5px; color: #5f6368;">No custom variables configured.</span>
+          <svg class="edit-icon" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Display & Video 360 Section Header -->
+    <div class="section-header">
+      <div class="section-title">Display & Video 360 activity settings</div>
+      <div class="section-subtitle">These settings only apply to this advertiser.</div>
+    </div>
+
+    <!-- DV360 Settings Card -->
+    <div class="card">
+      <!-- Remarketing Field -->
+      <div class="form-row">
+        <div class="label-col">Remarketing</div>
+        <div class="input-col" style="flex-direction: column; align-items: flex-start;">
+          <label class="checkbox-label">
+            <input type="checkbox" checked> Enable this Display & Video 360 activity for remarketing.
+          </label>
+          <div class="note-text" style="margin-top: 4px;">
+            All Display & Video 360 activities support conversion counting.<br>
+            Note: it can take up to an hour to generate a first-party user list.
+          </div>
+        </div>
+      </div>
+
+      <!-- YouTube-enabled Floodlight Field -->
+      <div class="form-row">
+        <div class="label-col">
+          YouTube-enabled Floodlight
+          <svg class="info-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        </div>
+        <div class="input-col" style="justify-content: flex-start;">
+          <span style="font-size: 13.5px; color: #5f6368;">YouTube is not available for this advertiser.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: Dynamic Tags Section Header & Card -->
+    <div class="section-header">
+      <div class="section-title">Dynamic Tags</div>
+    </div>
+
+    <div class="card">
+      <div class="form-row">
+        <div class="label-col">
+          Default Tags
+          <svg class="info-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        </div>
+        <div class="input-col">
+          <span style="font-size: 13.5px; color: #5f6368;">No default tags added.</span>
+          <svg class="edit-icon" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Settings Toggle Link -->
+    <div class="additional-settings-toggle">
+      <svg viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+      Additional settings
+    </div>
+
+  </div>
+
+  <!-- Bottom Action Bar -->
+  <div class="bottom-action-bar">
+    <button class="btn-blue" type="button">Create</button>
+    <button class="btn-flat" type="button">Reset</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const typeRadios = document.querySelectorAll('input[name="type"]');
+      const countingMethodContainer = document.getElementById('countingMethodContainer');
+
+      function renderCounterMethods() {
+        countingMethodContainer.innerHTML = `
+          <div class="radio-option">
+            <label class="radio-label">
+              <input type="radio" name="counting_method" value="standard"> Standard
+            </label>
+            <div class="sub-desc">Count every conversion.</div>
+          </div>
+
+          <div class="radio-option">
+            <label class="radio-label">
+              <input type="radio" name="counting_method" value="unique"> Unique
+            </label>
+            <div class="sub-desc">Count the first conversion for each unique user during each 24-hour day, from midnight to midnight, Eastern Time (US).</div>
+          </div>
+
+          <div class="radio-option">
+            <label class="radio-label">
+              <input type="radio" name="counting_method" value="per_session"> Per session
+            </label>
+            <div class="sub-desc">Count one conversion per user per session. Session length is set by the site where the Floodlight tag is deployed.</div>
+          </div>
+        `;
+      }
+
+      function handleTypeChange() {
+        const selectedType = document.querySelector('input[name="type"]:checked')?.value;
+        if (selectedType === 'counter') {
+          renderCounterMethods();
+        } else {
+          countingMethodContainer.innerHTML = '';
+        }
+      }
+
+      // Attach event listener to all type radio buttons
+      typeRadios.forEach(radio => {
+        radio.addEventListener('change', handleTypeChange);
+      });
+
+      // Initial check in case it's pre-selected
+      handleTypeChange();
+    });
+  </script>
+
+</body>
+</html>
