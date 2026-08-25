@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New campaign - Display & Video 360</title>
+  <style>
+    :root {
+      --bg-color: #f1f3f4;
+      --card-bg: #ffffff;
+      --border-color: #dadce0;
+      --primary-blue: #1a73e8;
+      --text-main: #202124;
+      --text-sub: #5f6368;
+      --hover-bg: #f8f9fa;
+      --selected-bg: #e8f0fe;
+      --green-target: #1e8e3e;
+      --red-exclude: #d93025;
+      --info-bg: #e8f0fe;
+    }
+
+    * { box-sizing: border-box; font-family: Roboto, Arial, sans-serif; }
+    body { margin: 0; background-color: var(--bg-color); color: var(--text-main); font-size: 14px; }
+
+    /* Header */
+    header {
+      height: 56px;
+      background: #fff;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header .close-btn { font-size: 20px; cursor: pointer; margin-right: 24px; color: var(--text-sub); }
+    header h1 { font-size: 18px; font-weight: 400; margin: 0; }
+
+    /* Layout */
+    .container { max-width: 1024px; margin: 24px auto; padding: 0 16px 80px; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .card-title-sub {
+      color: var(--text-sub);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    /* Form Rows */
+    .form-row {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      padding: 16px 0;
+      border-bottom: 1px solid #f1f3f4;
+      align-items: flex-start;
+    }
+    .form-row:last-child { border-bottom: none; }
+    .label { font-weight: 500; font-size: 14px; color: var(--text-main); }
+    .sub-label { display: block; font-size: 12px; color: var(--text-sub); font-weight: normal; }
+
+    /* Controls */
+    input[type="text"], input[type="number"], input[type="date"], select {
+      height: 38px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 0 12px;
+      font-size: 14px;
+      outline: none;
+    }
+    input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus { border-color: var(--primary-blue); }
+    .inline-controls { display: flex; align-items: center; gap: 12px; }
+    .checkbox-group { display: flex; gap: 24px; }
+    .checkbox-label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    
+    /* Editable Budget Table */
+    table.dv-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+    }
+    table.dv-table th, table.dv-table td {
+      border: 1px solid var(--border-color);
+      padding: 8px 10px;
+      text-align: left;
+      font-size: 13px;
+    }
+    table.dv-table th { background-color: #fafafa; font-weight: 500; }
+    table.dv-table td input[type="text"], table.dv-table td input[type="number"], table.dv-table td input[type="date"] {
+      width: 100%;
+      height: 32px;
+      font-size: 13px;
+      border: 1px solid transparent;
+      background: transparent;
+      padding: 0 6px;
+    }
+    table.dv-table td input:hover { border-color: var(--border-color); background: #fff; }
+    table.dv-table td input:focus { border-color: var(--primary-blue); background: #fff; }
+
+    /* Links & Icons */
+    .link-blue { color: var(--primary-blue); text-decoration: none; cursor: pointer; font-size: 13px; }
+    .link-blue:hover { text-decoration: underline; }
+    .edit-icon { cursor: pointer; float: right; color: var(--text-sub); font-style: normal; }
+
+    /* Info Banner Callout */
+    .info-box {
+      background-color: var(--info-bg);
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+    .info-box-icon {
+      color: var(--primary-blue);
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    /* Brand Safety Styling */
+    .bs-category-title { font-weight: 500; color: var(--text-main); margin-bottom: 4px; font-size: 13px; }
+    .bs-list { list-style: none; padding: 0; margin: 0 0 12px 0; color: #80868b; font-size: 13px; }
+    .bs-list li { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
+    .bs-list li::before { content: "🔒"; font-size: 11px; opacity: 0.6; }
+
+    /* Modals Base */
+    .overlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.4); display: none; justify-content: center; align-items: center; z-index: 100;
+    }
+    .modal {
+      background: #fff; width: 92%; max-width: 1000px;
+      border-radius: 8px; display: flex; flex-direction: column; overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15); max-height: 90vh;
+    }
+    .modal-header { height: 56px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; padding: 0 24px; gap: 16px; }
+    .modal-body { padding: 24px; background: #fff; overflow-y: auto; flex: 1; }
+    .modal-footer { height: 56px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: flex-end; padding: 0 24px; gap: 12px; background: #fff; }
+
+    /* Buttons */
+    .btn-primary { background: var(--primary-blue); color: #fff; border: none; border-radius: 4px; padding: 8px 20px; font-weight: 500; cursor: pointer; font-size: 14px; }
+    .btn-primary:hover { background: #1557b0; }
+    .btn-flat { background: transparent; color: var(--text-sub); border: none; padding: 8px 16px; font-weight: 500; cursor: pointer; font-size: 14px; }
+    .btn-flat:hover { color: var(--text-main); }
+
+    /* Demographics Styles */
+    .demo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .demo-col-header { font-size: 13px; font-weight: 500; color: var(--text-sub); margin-bottom: 20px; }
+    .check-item { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-size: 14px; user-select: none; }
+    .check-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary-blue); cursor: pointer; margin: 0; }
+    .help-icon { color: #80868b; font-size: 12px; cursor: pointer; border: 1px solid #80868b; border-radius: 50%; width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; }
+    
+    .slider-wrapper { position: relative; width: 140px; padding-left: 28px; margin: 12px 0; }
+    .slider-track { position: absolute; left: 35px; top: 8px; bottom: 8px; width: 3px; background: var(--primary-blue); z-index: 1; }
+    .slider-node-container { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; height: 220px; }
+    .slider-step { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+    .slider-step .dot { width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 2px solid var(--border-color); box-sizing: border-box; }
+    .slider-step.selected .dot { background: var(--primary-blue); border-color: var(--primary-blue); }
+    .slider-step .node-label { font-size: 13px; color: var(--text-main); }
+    .slider-step.disabled .node-label { color: #bdc1c6; }
+    .summary-text { font-size: 12px; color: var(--text-sub); margin: 8px 0 12px 28px; }
+
+    /* Geography Modal Split Pane (Updated UI) */
+    .geo-split { display: flex; gap: 24px; height: 480px; }
+    .geo-left { flex: 1; display: flex; flex-direction: column; border-right: 1px solid var(--border-color); padding-right: 24px; }
+    .geo-right { flex: 1; display: flex; flex-direction: column; padding-left: 8px; }
+    
+    .geo-search-container { position: relative; margin-bottom: 12px; }
+    .geo-search-container input { width: 100%; padding-left: 36px; height: 40px; border-radius: 4px; }
+    .geo-search-icon { position: absolute; left: 12px; top: 11px; color: var(--text-sub); font-size: 14px; }
+
+    .country-search-results {
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      max-height: 180px;
+      overflow-y: auto;
+      margin-bottom: 16px;
+      display: none;
+      background: #fff;
+    }
+    .country-result-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-bottom: 1px solid #f1f3f4;
+      font-size: 13px;
+    }
+    .country-result-item:last-child { border-bottom: none; }
+    .country-result-item:hover { background: var(--hover-bg); }
+
+    .action-btn-target {
+      background: #e6f4ea; color: var(--green-target); border: 1px solid var(--green-target);
+      padding: 4px 12px; border-radius: 4px; font-weight: 500; font-size: 12px; cursor: pointer;
+    }
+    .action-btn-target:hover { background: #ceead6; }
+    .action-btn-exclude {
+      background: #fce8e6; color: var(--red-exclude); border: 1px solid var(--red-exclude);
+      padding: 4px 12px; border-radius: 4px; font-weight: 500; font-size: 12px; cursor: pointer; margin-left: 6px;
+    }
+    .action-btn-exclude:hover { background: #fad2cf; }
+
+    .selected-geo-header {
+      font-weight: 500; font-size: 14px; color: var(--text-main);
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+    }
+    .selected-geo-list { list-style: none; padding: 0; margin: 0; overflow-y: auto; flex: 1; border: 1px solid var(--border-color); border-radius: 4px; }
+    .selected-geo-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px; border-bottom: 1px solid #f1f3f4; font-size: 13px;
+    }
+    .selected-geo-item:last-child { border-bottom: none; }
+    .badge-target { background: #e6f4ea; color: var(--green-target); padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 500; }
+    .badge-exclude { background: #fce8e6; color: var(--red-exclude); padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 500; }
+    .remove-geo-btn { color: var(--text-sub); cursor: pointer; font-size: 16px; margin-left: 12px; }
+    .remove-geo-btn:hover { color: var(--red-exclude); }
+
+    /* Language Modal Split Pane */
+    .lang-split { display: flex; gap: 24px; height: 450px; }
+    .lang-left { flex: 1; display: flex; flex-direction: column; border-right: 1px solid var(--border-color); padding-right: 24px; }
+    .lang-right { flex: 1; padding-left: 12px; }
+    .lang-list { list-style: none; padding: 0; margin: 16px 0 0 0; overflow-y: auto; flex: 1; }
+    .lang-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; font-size: 14px; }
+
+    /* Additional Details UI Controls */
+    .url-input-wrapper { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .url-input-wrapper input { width: 260px; }
+    .remove-circle-btn {
+      color: #80868b;
+      font-size: 18px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .remove-circle-btn:hover { color: #d93025; }
+    .side-tip {
+      border-left: 1px solid var(--border-color);
+      padding-left: 20px;
+      color: var(--text-sub);
+      font-size: 13px;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <span class="close-btn">&times;</span>
+    <h1>New campaign</h1>
+  </header>
+
+  <div class="container">
+    
+    <!-- 1. Campaign Name Section -->
+    <div class="card">
+      <div class="inline-controls" style="justify-content: space-between;">
+        <div style="flex: 1; max-width: 500px;">
+          <label class="label" style="display:block; margin-bottom: 8px;">Campaign name</label>
+          <input type="text" placeholder="Enter name" style="width: 100%;">
+        </div>
+        <select>
+          <option>Active</option>
+          <option>Paused</option>
+        </select>
+      </div>
+      <div style="margin-top: 12px;">
+        <a href="#" class="link-blue">Copy settings from an existing campaign</a>
+      </div>
+    </div>
+
+    <!-- 2. Settings Section -->
+    <div class="card">
+      <div class="card-title-sub">
+        <span>⚙️</span> These settings don't impact serving.
+      </div>
+
+      <div class="form-row">
+        <div class="label">Overall campaign goal</div>
+        <div>
+          <select style="width: 300px;">
+            <option>Choose goal</option>
+            <option>Raise awareness of my brand or product</option>
+            <option>Drive online action or visits</option>
+            <option>Drive offline or in-store sales</option>
+            <option>Drive app installs or engagements</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="label">KPI</div>
+        <div class="inline-controls">
+          <select style="width: 150px;">
+            <option disabled selected>Choose KPI</option>
+            <optgroup label="Recommended KPIs">
+              <option>CPV</option>
+              <option>CPM</option>
+              <option>Viewable %</option>
+              <option>CPIAVC</option>
+            </optgroup>
+            <optgroup label="Not recommended">
+              <option>CPA</option>
+              <option>CPC</option>
+              <option>CTR</option>
+            </optgroup>
+          </select>
+          <input type="text" placeholder="A$ 8" style="width: 120px;">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="label">Creative type you expect to use</div>
+        <div class="checkbox-group">
+          <label class="checkbox-label"><input type="checkbox"> Display</label>
+          <label class="checkbox-label"><input type="checkbox"> Video</label>
+          <label class="checkbox-label"><input type="checkbox"> Audio</label>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="label">Planned spend <span class="sub-label">Optional</span></div>
+        <div class="inline-controls">
+          <input type="text" value="A$" style="width: 150px;">
+          <span>AUD</span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="label">Planned dates</div>
+        <div class="inline-controls">
+          <div>
+            <span class="sub-label">Start date</span>
+            <input type="date" value="2026-08-21">
+          </div>
+          <div>
+            <span class="sub-label">End date (optional)</span>
+            <input type="date">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Budget Section -->
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <strong style="font-size: 16px;">Additional budget details</strong>
+          <p style="margin: 4px 0 0 0; color: var(--text-sub); font-size: 13px;">Enter budgets planned for this campaign.</p>
+        </div>
+        <div>
+          <span style="font-size: 12px; color: var(--text-sub);">Budget type </span>
+          <select id="globalCurrency" onchange="updateCurrencies(this.value)">
+            <option value="AUD" selected>AUD</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="INR">INR</option>
+          </select>
+        </div>
+      </div>
+
+      <table class="dv-table" id="budgetTable">
+        <thead>
+          <tr>
+            <th style="width: 30px;"><input type="checkbox" onclick="toggleSelectAll(this)"></th>
+            <th>Budget (required)</th>
+            <th>Name (required)</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Invoice grouping ID</th>
+            <th>External budget ID</th>
+            <th style="width: 40px;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><input type="text" class="budget-input" value="A$100.00"></td>
+            <td><input type="text" value="Budget 1"></td>
+            <td><input type="date" value="2026-08-21"></td>
+            <td><input type="date" value="2026-08-31"></td>
+            <td><input type="text" placeholder="-"></td>
+            <td><input type="text" placeholder="-"></td>
+            <td style="text-align: center;"><span style="cursor:pointer; color:#d93025;" onclick="deleteRow(this)">🗑️</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top: 12px;">
+        <button class="link-blue" onclick="addBudgetRow()" style="background: none; border: none; padding: 0; font-weight: 500;">+ Add Budget Row</button>
+      </div>
+    </div>
+
+    <!-- 4. Frequency Cap Section -->
+    <div class="card">
+      <div class="form-row" style="border:none;">
+        <div class="label">Frequency cap</div>
+        <div>
+          <div style="margin-bottom: 12px;">
+            <label><input type="radio" name="freq"> No limit</label>
+          </div>
+          <div class="inline-controls" style="margin-bottom: 12px;">
+            <label><input type="radio" name="freq" checked> Limit frequency to</label>
+            <input type="number" value="5" style="width: 60px;">
+            <span>exposures per</span>
+            <input type="number" value="1" style="width: 60px;">
+            <select>
+              <option>Lifetime of this campaign</option>
+              <option>Months</option>
+              <option selected>Weeks</option>
+              <option>Days</option>
+              <option>Hours</option>
+              <option>Minutes</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Inventory Source Section -->
+    <div class="card">
+      <strong style="font-size: 16px;">Inventory source</strong>
+      <div class="card-title-sub" style="margin-top: 6px; margin-bottom: 8px;">
+        <span>⚙️</span> New insertion orders and line items in this campaign will inherit these settings.
+      </div>
+
+      <!-- Quality Row -->
+      <div class="form-row">
+        <div class="label">Quality</div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <select style="min-width: 320px;">
+              <option>Authorized Direct Sellers</option>
+              <option selected>Authorized Direct Sellers And Resellers</option>
+              <option>Authorized and Non-Participating Publishers</option>
+            </select>
+            <span class="help-icon">?</span>
+          </div>
+          <div style="font-size: 12px; color: var(--text-sub); max-width: 220px; line-height: 1.3; border-left: 1px solid var(--border-color); padding-left: 16px;">
+            Select who you want to buy web and app inventory from. 
+            <a href="#" class="link-blue" style="font-size: 12px;">Learn more ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Public Inventory Row -->
+      <div class="form-row">
+        <div class="label">Public Inventory</div>
+        <div>
+          <span class="edit-icon" onclick="openModal('inventoryModal')">✏️</span>
+          <div style="display: flex; align-items: flex-start; gap: 8px;">
+            <span style="color: var(--green-target); font-weight: bold; font-size: 16px;">✓</span>
+            <div>
+              <div style="font-size: 14px; font-weight: 500;">56 Exchanges and 0 Subexchanges are selected</div>
+              <div style="font-size: 13px; color: var(--text-sub); margin-top: 2px;">Targeting new exchanges</div>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <span class="info-box-icon">ⓘ</span>
+            <div style="flex: 1;">
+              App mediation partners give Display & Video 360 advertisers more control and access to mobile app inventory. Impressions will not serve until add-on fee terms are reviewed and accepted.
+            </div>
+            <a href="#" class="link-blue" style="white-space: nowrap;">Learn more</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Deals and Inventory Packages Row -->
+      <div class="form-row">
+        <div class="label">Deals and Inventory Packages</div>
+        <div>
+          <span class="edit-icon" onclick="openModal('inventoryModal')">✏️</span>
+          <span style="color: var(--text-main);">0 deals and inventory packages selected</span>
+        </div>
+      </div>
+
+      <!-- Deal Groups Row -->
+      <div class="form-row">
+        <div class="label">Deal groups and preferred deal groups</div>
+        <div>
+          <span class="edit-icon" onclick="openModal('inventoryModal')">✏️</span>
+          <span style="color: var(--text-main);">No inventory groups selected</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Targeting Section -->
+    <div class="card">
+      <strong style="font-size: 16px;">Targeting</strong>
+      <div class="card-title-sub" style="margin-top: 4px;">
+        <span>⚙️</span> New insertion orders and line items in this campaign will inherit these settings.
+      </div>
+
+      <div class="form-row">
+        <div class="label">Demographics</div>
+        <div>
+          <span class="edit-icon" onclick="openModal('demoModal')">✏️</span>
+          <span id="demoSummaryLabelMain">All genders, ages, parental statuses and household incomes</span>
+        </div>
+      </div>
+
+      <!-- Geography Row -->
+      <div class="form-row">
+        <div class="label">Geography</div>
+        <div>
+          <span class="edit-icon" onclick="openModal('geoModal')">✏️</span>
+          <span id="geoSummaryLabel">All locations</span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="label">Language</div>
+        <div>
+          <span class="edit-icon" onclick="openModal('langModal')">✏️</span>
+          <span id="langSummaryLabel">All languages</span>
+        </div>
+      </div>
+
+      <!-- Brand Safety Row -->
+      <div class="form-row">
+        <div class="label">Brand safety</div>
+        <div>
+          <span class="edit-icon" onclick="openModal('brandSafetyModal')">✏️</span>
+          <div style="display: flex; gap: 8px; align-items: flex-start;">
+            <span style="color: var(--red-exclude); font-size: 16px; line-height: 1;">🚫</span>
+            <div>
+              <div class="bs-category-title">Digital Content Label exclusions</div>
+              <ul class="bs-list">
+                <li>DL-MA</li>
+                <li>Not yet labeled</li>
+              </ul>
+
+              <div class="bs-category-title">Sensitive Category exclusions</div>
+              <ul class="bs-list" id="sensitiveCatList">
+                <li>Downloads & sharing</li>
+                <li>Gambling</li>
+                <li>Drugs</li>
+                <li>Sensitive social issues</li>
+                <li>Shocking</li>
+              </ul>
+              
+              <span class="link-blue" id="showMoreBsBtn" onclick="toggleBrandSafetyExpand()">show 12 more</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Environment Row -->
+      <div class="form-row">
+        <div class="label">Environment</div>
+        <div>
+          <span class="edit-icon" onclick="openModal('environmentModal')">✏️</span>
+          <div style="display: flex; gap: 8px; align-items: flex-start;">
+            <span style="color: var(--green-target); font-weight: bold; font-size: 16px; line-height: 1;">✓</span>
+            <div>
+              <div style="font-weight: 500; font-size: 13px; margin-bottom: 4px;">Include the following environments</div>
+              <div style="color: var(--text-sub); font-size: 13px; line-height: 1.4;" id="envSummaryText">
+                Web<br>App
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding-top: 16px;">
+        <span class="link-blue" style="font-weight: 500; font-size: 14px;">Add targeting</span>
+      </div>
+    </div>
+
+    <!-- 7. Additional Details Section -->
+    <div class="card">
+      <strong style="font-size: 16px; display: block;">Additional details</strong>
+      <span style="color: var(--text-sub); font-size: 13px; display: block; margin-top: 4px; margin-bottom: 12px;">
+        Add more details to improve your recommendations.
+      </span>
+
+      <div class="form-row">
+        <div class="label">
+          Landing page URLs
+          <span class="sub-label">Optional</span>
+        </div>
+        <div>
+          <div id="landingUrlsContainer">
+            <div class="url-input-wrapper">
+              <input type="text">
+              <span class="remove-circle-btn" onclick="removeUrlInput(this)">⊗</span>
+            </div>
+          </div>
+          <div>
+            <span class="link-blue" onclick="addLandingUrlInput()">Add another url</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="label">
+          Keywords
+          <span class="sub-label">Optional</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 280px; gap: 24px; align-items: center;">
+          <div>
+            <input type="text" placeholder="Add keywords separated by a comma" style="width: 100%;">
+          </div>
+          <div class="side-tip">
+            Enter up to 5 keywords to help improve recommendations.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Demographics Modal -->
+  <div class="overlay" id="demoModal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="close-btn" onclick="closeModal('demoModal')">&times;</span>
+        <h3 style="font-weight: 400; margin: 0; font-size: 18px;">Demographics</h3>
+      </div>
+      
+      <div class="modal-body">
+        <div class="demo-grid">
+          <div>
+            <div class="demo-col-header">Gender</div>
+            <label class="check-item"><input type="checkbox" checked> Male</label>
+            <label class="check-item"><input type="checkbox" checked> Female</label>
+            <label class="check-item"><input type="checkbox" checked> Unknown <span class="help-icon">?</span></label>
+          </div>
+
+          <div>
+            <div class="demo-col-header">Age</div>
+            <label class="check-item">
+              <input type="checkbox" checked id="ageToggle" onchange="toggleSliderGroup('age')"> Age Range
+            </label>
+            <div class="slider-wrapper" id="ageSliderGroup">
+              <div class="slider-track" id="ageTrack"></div>
+              <div class="slider-node-container" id="ageNodes">
+                <div class="slider-step selected" onclick="selectAgeRange(0)"><div class="dot"></div><span class="node-label">18</span></div>
+                <div class="slider-step selected" onclick="selectAgeRange(1)"><div class="dot"></div><span class="node-label">25</span></div>
+                <div class="slider-step selected" onclick="selectAgeRange(2)"><div class="dot"></div><span class="node-label">35</span></div>
+                <div class="slider-step selected" onclick="selectAgeRange(3)"><div class="dot"></div><span class="node-label">45</span></div>
+                <div class="slider-step selected" onclick="selectAgeRange(4)"><div class="dot"></div><span class="node-label">55</span></div>
+                <div class="slider-step selected" onclick="selectAgeRange(5)"><div class="dot"></div><span class="node-label">65</span></div>
+                <div class="slider-step selected" onclick="selectAgeRange(6)"><div class="dot"></div><span class="node-label">65+</span></div>
+              </div>
+            </div>
+            <div class="summary-text" id="ageSummaryLabel">Ages 18–65+</div>
+            <label class="check-item"><input type="checkbox" checked> Unknown <span class="help-icon">?</span></label>
+          </div>
+
+          <div>
+            <div class="demo-col-header">Parental status</div>
+            <label class="check-item"><input type="checkbox" checked> Parent</label>
+            <label class="check-item"><input type="checkbox" checked> Not a parent</label>
+            <label class="check-item"><input type="checkbox" checked> Unknown <span class="help-icon">?</span></label>
+          </div>
+
+          <div>
+            <div class="demo-col-header">Household income</div>
+            <label class="check-item">
+              <input type="checkbox" checked id="incomeToggle" onchange="toggleSliderGroup('income')"> Income Range
+            </label>
+            <div class="slider-wrapper" id="incomeSliderGroup">
+              <div class="slider-track" id="incomeTrack"></div>
+              <div class="slider-node-container" id="incomeNodes">
+                <div class="slider-step selected" onclick="selectIncomeRange(0)"><div class="dot"></div><span class="node-label">Top 10%</span></div>
+                <div class="slider-step selected" onclick="selectIncomeRange(1)"><div class="dot"></div><span class="node-label">Top 11-20%</span></div>
+                <div class="slider-step selected" onclick="selectIncomeRange(2)"><div class="dot"></div><span class="node-label">Top 21-30%</span></div>
+                <div class="slider-step selected" onclick="selectIncomeRange(3)"><div class="dot"></div><span class="node-label">Top 31-40%</span></div>
+                <div class="slider-step selected" onclick="selectIncomeRange(4)"><div class="dot"></div><span class="node-label">Top 41-50%</span></div>
+                <div class="slider-step selected" onclick="selectIncomeRange(5)"><div class="dot"></div><span class="node-label">Lower 50%</span></div>
+              </div>
+            </div>
+            <label class="check-item" style="margin-top: 16px;"><input type="checkbox" checked> Unknown <span class="help-icon">?</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Geography Country Search & Selection Popup Modal -->
+  <div class="overlay" id="geoModal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="close-btn" onclick="closeModal('geoModal')">&times;</span>
+        <h3 style="font-weight: 400; margin: 0; font-size: 18px;">Geography Targeting</h3>
+      </div>
+      
+      <div class="modal-body">
+        <div class="geo-split">
+          <!-- Left Column: Search & Add/Exclude Country -->
+          <div class="geo-left">
+            <label class="label" style="display:block; margin-bottom: 8px;">Search Country</label>
+            <div class="geo-search-container">
+              <span class="geo-search-icon">🔍</span>
+              <input type="text" id="countrySearchInput" placeholder="Type country name (e.g., United States, India, Canada...)" oninput="searchCountries()">
+            </div>
+
+            <!-- Search Dropdown Results -->
+            <div class="country-search-results" id="searchResultsContainer">
+              <!-- Dynamically populated -->
+            </div>
+
+            <div style="font-size: 12px; color: var(--text-sub); line-height: 1.4;">
+              Type a country name above to target or exclude it from your campaign.
+            </div>
+          </div>
+
+          <!-- Right Column: Selected Countries List -->
+          <div class="geo-right">
+            <div class="selected-geo-header">
+              <span>Selected Geography</span>
+              <span class="link-blue" onclick="clearAllCountries()" style="font-size: 12px; font-weight: normal;">Clear all</span>
+            </div>
+
+            <ul class="selected-geo-list" id="selectedCountriesList">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-flat" onclick="closeModal('geoModal')">Cancel</button>
+        <button class="btn-primary" onclick="saveGeographySelection()">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Language Modal -->
+  <div class="overlay" id="langModal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="close-btn" onclick="closeModal('langModal')">&times;</span>
+        <h3 style="font-weight: 400; margin: 0; font-size: 18px;">Language</h3>
+      </div>
+      
+      <div class="modal-body">
+        <div class="lang-split">
+          <div class="lang-left">
+            <div class="geo-search-container">
+              <input type="text" id="langSearchInput" placeholder="Search for languages to include or exclude" onkeyup="filterLangList()">
+            </div>
+
+            <ul class="lang-list" id="langList">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+
+          <div class="lang-right">
+            <div id="langSummaryPane" style="color: var(--text-sub); font-size: 13px;">
+              <strong>None selected</strong>
+              <p style="margin-top: 8px;">All languages are currently included</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Brand Safety Modal -->
+  <div class="overlay" id="brandSafetyModal">
+    <div class="modal" style="max-width: 700px;">
+      <div class="modal-header">
+        <span class="close-btn" onclick="closeModal('brandSafetyModal')">&times;</span>
+        <h3 style="font-weight: 400; margin: 0; font-size: 18px;">Brand Safety Settings</h3>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom: 20px;">
+          <strong style="display:block; margin-bottom: 12px; font-size: 14px;">Digital Content Label Exclusions</strong>
+          <label class="check-item"><input type="checkbox" checked disabled> DL-MA (Mature audiences)</label>
+          <label class="check-item"><input type="checkbox" checked disabled> Not yet labeled</label>
+        </div>
+        <div>
+          <strong style="display:block; margin-bottom: 12px; font-size: 14px;">Sensitive Category Exclusions</strong>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <label class="check-item"><input type="checkbox" checked disabled> Downloads & sharing</label>
+            <label class="check-item"><input type="checkbox" checked disabled> Gambling</label>
+            <label class="check-item"><input type="checkbox" checked disabled> Drugs</label>
+            <label class="check-item"><input type="checkbox" checked disabled> Sensitive social issues</label>
+            <label class="check-item"><input type="checkbox" checked disabled> Shocking</label>
+            <label class="check-item"><input type="checkbox" checked disabled> Violence</label>
+            <label class="check-item"><input type="checkbox" checked disabled> Profanity</label>
+            <label class="check-item"><input type="checkbox" checked disabled> Alcohol</label>
+            <label class="check-item"><input type="checkbox" checked disabled> Politics</label>
+            <label class="check-item"><input type="checkbox" checked disabled> Transportation accidents</label>
+            <label class="check-item"><input type="checkbox" checked disabled> Weapons</label>
+            <label class="check-item"><input type="checkbox" checked disabled> Tragedy</label>
+            <label class="check-item"><input type="checkbox" checked disabled> Sexual</label>
+            <label class="check-item"><input type="checkbox" checked disabled> Derogatory</label>
+            <label class="check-item"><input type="checkbox" checked disabled> Religion</label>
+            <label class="check-item"><input type="checkbox" checked disabled> Tobacco</label>
+            <label class="check-item"><input type="checkbox" checked disabled> Suggestive</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Environment Modal -->
+  <div class="overlay" id="environmentModal">
+    <div class="modal" style="max-width: 500px;">
+      <div class="modal-header">
+        <span class="close-btn" onclick="closeModal('environmentModal')">&times;</span>
+        <h3 style="font-weight: 400; margin: 0; font-size: 18px;">Environment Targeting</h3>
+      </div>
+      <div class="modal-body">
+        <p style="margin-top: 0; color: var(--text-sub); font-size: 13px;">Select environments to target for this campaign.</p>
+        <label class="check-item"><input type="checkbox" id="envWeb" checked onchange="updateEnvironmentSummary()"> Web</label>
+        <label class="check-item"><input type="checkbox" id="envApp" checked onchange="updateEnvironmentSummary()"> App</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inventory Source Edit Modal -->
+  <div class="overlay" id="inventoryModal">
+    <div class="modal" style="max-width: 650px;">
+      <div class="modal-header">
+        <span class="close-btn" onclick="closeModal('inventoryModal')">&times;</span>
+        <h3 style="font-weight: 400; margin: 0; font-size: 18px;">Edit Inventory Source</h3>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom: 20px;">
+          <label class="label" style="display:block; margin-bottom: 8px;">Public inventory selection</label>
+          <label class="checkbox-label"><input type="checkbox" checked id="pubInvCheck"> Target 56 public exchanges and subexchanges</label>
+        </div>
+        <div>
+          <label class="label" style="display:block; margin-bottom: 8px;">Deals and inventory packages</label>
+          <label class="checkbox-label"><input type="checkbox" id="dealsCheck"> Target custom deal packages</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* Modal Handlers */
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+    /* Additional Details Dynamic Functions */
+    function addLandingUrlInput() {
+      const container = document.getElementById('landingUrlsContainer');
+      const div = document.createElement('div');
+      div.className = 'url-input-wrapper';
+      div.innerHTML = `
+        <input type="text">
+        <span class="remove-circle-btn" onclick="removeUrlInput(this)">⊗</span>
+      `;
+      container.appendChild(div);
+    }
+
+    function removeUrlInput(btn) {
+      const container = document.getElementById('landingUrlsContainer');
+      if (container.children.length > 1) {
+        btn.closest('.url-input-wrapper').remove();
+      } else {
+        btn.previousElementSibling.value = '';
+      }
+    }
+
+    /* Brand Safety Show More/Less Expansion */
+    let bsExpanded = false;
+    const fullSensitiveList = [
+      "Downloads & sharing", "Gambling", "Drugs", "Sensitive social issues",
+      "Shocking", "Violence", "Profanity", "Alcohol", "Politics",
+      "Transportation accidents", "Weapons", "Tragedy", "Sexual",
+      "Derogatory", "Religion", "Tobacco", "Suggestive"
+    ];
+
+    function toggleBrandSafetyExpand() {
+      const listContainer = document.getElementById('sensitiveCatList');
+      const btn = document.getElementById('showMoreBsBtn');
+
+      if (!bsExpanded) {
+        listContainer.innerHTML = fullSensitiveList.map(item => `<li>${item}</li>`).join('');
+        btn.innerText = 'show less';
+        bsExpanded = true;
+      } else {
+        listContainer.innerHTML = fullSensitiveList.slice(0, 5).map(item => `<li>${item}</li>`).join('');
+        btn.innerText = `show ${fullSensitiveList.length - 5} more`;
+        bsExpanded = false;
+      }
+    }
+
+    /* Environment Update Logic */
+    function updateEnvironmentSummary() {
+      const webChecked = document.getElementById('envWeb').checked;
+      const appChecked = document.getElementById('envApp').checked;
+      const summaryContainer = document.getElementById('envSummaryText');
+
+      let arr = [];
+      if (webChecked) arr.push('Web');
+      if (appChecked) arr.push('App');
+
+      if (arr.length === 0) {
+        summaryContainer.innerHTML = 'None selected';
+      } else {
+        summaryContainer.innerHTML = arr.join('<br>');
+      }
+    }
+
+    /* Demographics Dynamic Sliders */
+    let ageRange = [0, 6];
+    let incomeRange = [0, 5];
+    const ageLabels = ["18", "25", "35", "45", "55", "65", "65+"];
+
+    function selectAgeRange(index) {
+      if (!document.getElementById('ageToggle').checked) return;
+      if (Math.abs(index - ageRange[0]) < Math.abs(index - ageRange[1])) ageRange[0] = index;
+      else ageRange[1] = index;
+      if (ageRange[0] > ageRange[1]) ageRange = [index, index];
+
+      renderRange('ageNodes', ageRange[0], ageRange[1]);
+      document.getElementById('ageSummaryLabel').innerText = `Ages ${ageLabels[ageRange[0]]}–${ageLabels[ageRange[1]]}`;
+    }
+
+    function selectIncomeRange(index) {
+      if (!document.getElementById('incomeToggle').checked) return;
+      if (Math.abs(index - incomeRange[0]) < Math.abs(index - incomeRange[1])) incomeRange[0] = index;
+      else incomeRange[1] = index;
+      if (incomeRange[0] > incomeRange[1]) incomeRange = [index, index];
+
+      renderRange('incomeNodes', incomeRange[0], incomeRange[1]);
+    }
+
+    function renderRange(containerId, start, end) {
+      const nodes = document.querySelectorAll(`#${containerId} .slider-step`);
+      nodes.forEach((node, idx) => {
+        if (idx >= start && idx <= end) {
+          node.classList.add('selected');
+          node.classList.remove('disabled');
+        } else {
+          node.classList.remove('selected');
+          node.classList.add('disabled');
+        }
+      });
+    }
+
+    function toggleSliderGroup(type) {
+      const isChecked = document.getElementById(type + 'Toggle').checked;
+      const group = document.getElementById(type + 'SliderGroup');
+      group.style.opacity = isChecked ? '1' : '0.4';
+      group.style.pointerEvents = isChecked ? 'auto' : 'none';
+    }
+
+    /* Country Geography Management (New Search & Target/Exclude Logic) */
+    const availableCountries = [
+      "Australia", "Argentina", "Brazil", "Canada", "China", "France", "Germany", 
+      "India", "Indonesia", "Italy", "Japan", "Mexico", "Netherlands", "Nigeria", 
+      "Pakistan", "Russia", "Saudi Arabia", "South Africa", "Spain", "United Kingdom", "United States"
+    ];
+
+    let selectedGeoCountries = [
+      { name: "United States", action: "Target" }
+    ];
+
+    function searchCountries() {
+      const query = document.getElementById('countrySearchInput').value.trim().toLowerCase();
+      const container = document.getElementById('searchResultsContainer');
+
+      if (!query) {
+        container.style.display = 'none';
+        container.innerHTML = '';
+        return;
+      }
+
+      const matches = availableCountries.filter(c => c.toLowerCase().includes(query));
+
+      if (matches.length === 0) {
+        container.innerHTML = `<div class="country-result-item" style="color:var(--text-sub);">No countries found</div>`;
+      } else {
+        container.innerHTML = matches.map(c => `
+          <div class="country-result-item">
+            <span>${c}</span>
+            <div>
+              <button class="action-btn-target" onclick="addCountry('${c}', 'Target')">Target</button>
+              <button class="action-btn-exclude" onclick="addCountry('${c}', 'Exclude')">Exclude</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      container.style.display = 'block';
+    }
+
+    function addCountry(name, action) {
+      // Remove existing if any
+      selectedGeoCountries = selectedGeoCountries.filter(c => c.name !== name);
+      // Add new selection
+      selectedGeoCountries.push({ name, action });
+      
+      // Reset search input
+      document.getElementById('countrySearchInput').value = '';
+      document.getElementById('searchResultsContainer').style.display = 'none';
+      
+      renderSelectedCountries();
+    }
+
+    function removeCountry(name) {
+      selectedGeoCountries = selectedGeoCountries.filter(c => c.name !== name);
+      renderSelectedCountries();
+    }
+
+    function clearAllCountries() {
+      selectedGeoCountries = [];
+      renderSelectedCountries();
+    }
+
+    function renderSelectedCountries() {
+      const listEl = document.getElementById('selectedCountriesList');
+      
+      if (selectedGeoCountries.length === 0) {
+        listEl.innerHTML = `<li style="padding: 16px; color: var(--text-sub); text-align: center; font-size: 13px;">No country targeting selected. (All locations)</li>`;
+        return;
+      }
+
+      listEl.innerHTML = selectedGeoCountries.map(item => `
+        <li class="selected-geo-item">
+          <span>${item.name}</span>
+          <div style="display:flex; align-items:center;">
+            <span class="${item.action === 'Target' ? 'badge-target' : 'badge-exclude'}">${item.action}</span>
+            <span class="remove-geo-btn" onclick="removeCountry('${item.name}')">&times;</span>
+          </div>
+        </li>
+      `).join('');
+    }
+
+    function saveGeographySelection() {
+      const summaryLabel = document.getElementById('geoSummaryLabel');
+      
+      if (selectedGeoCountries.length === 0) {
+        summaryLabel.innerText = "All locations";
+      } else {
+        const targets = selectedGeoCountries.filter(c => c.action === 'Target').map(c => c.name);
+        const excludes = selectedGeoCountries.filter(c => c.action === 'Exclude').map(c => c.name);
+
+        let parts = [];
+        if (targets.length > 0) parts.push(`Target: ${targets.join(', ')}`);
+        if (excludes.length > 0) parts.push(`Exclude: ${excludes.join(', ')}`);
+
+        summaryLabel.innerText = parts.join(' | ');
+      }
+
+      closeModal('geoModal');
+    }
+
+    /* Language Interactive Management */
+    let langData = [
+      { name: "Arabic", status: "none" },
+      { name: "Bengali", status: "none" },
+      { name: "Bulgarian", status: "none" },
+      { name: "Catalan", status: "none" },
+      { name: "Chinese (simplified)", status: "none" },
+      { name: "Chinese (traditional)", status: "none" },
+      { name: "Croatian", status: "none" },
+      { name: "Czech", status: "none" },
+      { name: "Danish", status: "none" },
+      { name: "Dutch", status: "none" },
+      { name: "English", status: "none" },
+      { name: "Estonian", status: "none" },
+      { name: "Filipino", status: "none" }
+    ];
+
+    function renderLangList() {
+      const listEl = document.getElementById('langList');
+      const searchVal = document.getElementById('langSearchInput').value.toLowerCase();
+      listEl.innerHTML = '';
+
+      let targets = [];
+      let excludes = [];
+
+      langData.forEach((item, index) => {
+        if (item.status === 'target') targets.push(item.name);
+        if (item.status === 'exclude') excludes.push(item.name);
+
+        if (item.name.toLowerCase().includes(searchVal)) {
+          const li = document.createElement('li');
+          li.className = 'lang-item';
+          li.innerHTML = `
+            <span>${item.name}</span>
+            <div class="geo-actions">
+              <div class="geo-btn ${item.status === 'target' ? 'active-target' : ''}" onclick="setLangStatus(${index}, 'target')">✓</div>
+              <div class="geo-btn ${item.status === 'exclude' ? 'active-exclude' : ''}" onclick="setLangStatus(${index}, 'exclude')">⊘</div>
+            </div>
+          `;
+          listEl.appendChild(li);
+        }
+      });
+
+      const summaryPane = document.getElementById('langSummaryPane');
+      const summaryLabel = document.getElementById('langSummaryLabel');
+
+      if (targets.length === 0 && excludes.length === 0) {
+        summaryPane.innerHTML = `<strong>None selected</strong><p style="margin-top: 8px;">All languages are currently included</p>`;
+        summaryLabel.innerText = "All languages";
+      } else {
+        let html = '';
+        if (targets.length > 0) html += `<strong>Targeted (${targets.length})</strong><p style="margin: 4px 0 12px 0;">${targets.join(', ')}</p>`;
+        if (excludes.length > 0) html += `<strong>Excluded (${excludes.length})</strong><p style="margin-top: 4px;">${excludes.join(', ')}</p>`;
+        summaryPane.innerHTML = html;
+        summaryLabel.innerText = `${targets.length} Targeted, ${excludes.length} Excluded`;
+      }
+    }
+
+    function setLangStatus(index, status) {
+      langData[index].status = langData[index].status === status ? 'none' : status;
+      renderLangList();
+    }
+
+    function filterLangList() { renderLangList(); }
+
+    /* Budget Table Logic */
+    function addBudgetRow() {
+      const tbody = document.querySelector('#budgetTable tbody');
+      const curr = document.getElementById('globalCurrency').value;
+      const currencySymbols = { 'AUD': 'A$', 'USD': '$', 'EUR': '€', 'INR': '₹' };
+      const symbol = currencySymbols[curr] || '$';
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input type="checkbox"></td>
+        <td><input type="text" class="budget-input" placeholder="${symbol}0.00"></td>
+        <td><input type="text" placeholder="Budget Name"></td>
+        <td><input type="date"></td>
+        <td><input type="date"></td>
+        <td><input type="text" placeholder="-"></td>
+        <td><input type="text" placeholder="-"></td>
+        <td style="text-align: center;"><span style="cursor:pointer; color:#d93025;" onclick="deleteRow(this)">🗑️</span></td>
+      `;
+      tbody.appendChild(tr);
+    }
+
+    function deleteRow(btn) { btn.closest('tr').remove(); }
+
+    function toggleSelectAll(masterCheckbox) {
+      const checkboxes = document.querySelectorAll('#budgetTable tbody input[type="checkbox"]');
+      checkboxes.forEach(cb => cb.checked = masterCheckbox.checked);
+    }
+
+    function updateCurrencies(curr) {
+      const currencySymbols = { 'AUD': 'A$', 'USD': '$', 'EUR': '€', 'INR': '₹' };
+      const symbol = currencySymbols[curr] || '$';
+      document.querySelectorAll('.budget-input').forEach(input => {
+        if (input.value && input.value !== '-') {
+          input.value = symbol + input.value.replace(/^[^\d]+/, '');
+        } else {
+          input.placeholder = symbol + '0.00';
+        }
+      });
+    }
+
+    // Initialize lists on load
+    renderSelectedCountries();
+    renderLangList();
+  </script>
+</body>
+</html>
