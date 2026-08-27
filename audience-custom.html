@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display & Video 360 - Custom Lists</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #3c4043;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            font-size: 13px;
+        }
+
+        /* Top Navigation Header */
+        header {
+            height: 48px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #dadce0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            z-index: 10;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #5f6368;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .logo-icon {
+            color: #34a853;
+            font-size: 24px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #5f6368;
+            font-size: 13px;
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .breadcrumb-label {
+            font-size: 10px;
+            color: #70757a;
+            line-height: 1;
+        }
+
+        .breadcrumb-title {
+            font-weight: 500;
+            color: #202124;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #5f6368;
+        }
+
+        .header-icon {
+            cursor: pointer;
+            font-size: 20px;
+            padding: 4px;
+            border-radius: 50%;
+        }
+
+        .header-icon:hover {
+            background-color: #f1f3f4;
+        }
+
+        .user-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: #e8f0fe;
+            background-image: url('https://lh3.googleusercontent.com/a/default-user');
+            background-size: cover;
+        }
+
+        /* Main Workspace Structure */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Left Navigation Sidebar */
+        sidebar {
+            width: 180px;
+            background-color: #ffffff;
+            border-right: 1px solid #dadce0;
+            display: flex;
+            flex-direction: column;
+            padding-top: 8px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            color: #5f6368;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background-color: #f1f3f4;
+        }
+
+        .nav-item.active {
+            color: #1b8e3e;
+            font-weight: 500;
+        }
+
+        .nav-item .material-icons-outlined {
+            font-size: 20px;
+        }
+
+        .sub-nav-item {
+            padding-left: 48px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            font-size: 12px;
+            margin-right: 12px;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        .sub-nav-item.selected {
+            background-color: #e6f4ea;
+            color: #137333;
+            font-weight: bold;
+        }
+
+        /* Center Content Area */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            background-color: #ffffff;
+        }
+
+        .page-header {
+            padding: 16px 24px 0 24px;
+        }
+
+        .page-title {
+            font-size: 20px;
+            font-weight: 400;
+            color: #202124;
+            margin-bottom: 16px;
+        }
+
+        /* Top Tabs Row */
+        .tabs-container {
+            border-bottom: 1px solid #dadce0;
+            display: flex;
+            gap: 32px;
+        }
+
+        .tab {
+            padding: 8px 0;
+            font-weight: 500;
+            color: #5f6368;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.3px;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: #1b8e3e;
+            border-bottom: 3px solid #1b8e3e;
+        }
+
+        /* Secondary Action Toolbar */
+        .action-bar {
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn-primary {
+            background-color: #1b8e3e;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            font-weight: 500;
+            font-size: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary:hover {
+            background-color: #177d37;
+        }
+
+        .filter-icon {
+            color: #5f6368;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        /* Data Table Styles */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #3c4043;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 12px 24px;
+            border-top: 1px solid #dadce0;
+            border-bottom: 1px solid #dadce0;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 24px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 13px;
+            color: #3c4043;
+            white-space: nowrap;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .link-text {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        .link-text:hover {
+            text-decoration: underline;
+        }
+
+        /* Right Hand Tool Column */
+        .right-sidebar {
+            width: 40px;
+            border-left: 1px solid #dadce0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 12px;
+            gap: 16px;
+            background-color: #ffffff;
+        }
+
+        .right-icon {
+            color: #5f6368;
+            cursor: pointer;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Bar -->
+    <header>
+        <div class="header-left">
+            <span class="material-icons-outlined header-icon">menu</span>
+            <a href="#" class="logo-container">
+                <span class="material-icons-outlined logo-icon">play_arrow</span>
+                <span>Display & Video 360</span>
+            </a>
+            <span class="material-icons-outlined" style="font-size: 16px; color: #5f6368; margin: 0 4px;">home</span>
+            <span style="color: #dadce0; margin-right: 4px;">&gt;</span>
+            <div class="breadcrumb">
+                <div class="breadcrumb-item">
+                    <span class="breadcrumb-label">Advertiser</span>
+                    <span class="breadcrumb-title">AdSwerve Internal</span>
+                </div>
+            </div>
+        </div>
+        <div class="header-right">
+            <span class="material-icons-outlined header-icon">search</span>
+            <span class="material-icons-outlined header-icon">notifications</span>
+            <span class="material-icons-outlined header-icon">person_add</span>
+            <span class="material-icons-outlined header-icon">folder_open</span>
+            <span class="material-icons-outlined header-icon">insert_chart</span>
+            <span class="material-icons-outlined header-icon">keyboard</span>
+            <span class="material-icons-outlined header-icon">help_outline</span>
+            <div class="user-avatar"></div>
+        </div>
+    </header>
+
+    <!-- Main Container Layout -->
+    <div class="main-container">
+        
+        <!-- Navigation Side Menu -->
+        <sidebar>
+            <div class="nav-item">
+                <span class="material-icons-outlined">adjust</span>
+                <span>Campaigns</span>
+            </div>
+            <div class="nav-item active">
+                <span class="material-icons-outlined">people</span>
+                <span>Audiences</span>
+            </div>
+            <div class="nav-item sub-nav-item selected">
+                All audiences
+            </div>
+            <div class="nav-item" style="margin-top: 40px;">
+                <span class="material-icons-outlined">image</span>
+                <span>Creative</span>
+            </div>
+            <div class="nav-item">
+                <span class="material-icons-outlined">inventory_2</span>
+                <span>Inventory</span>
+            </div>
+            <div class="nav-item">
+                <span class="material-icons-outlined">bar_chart</span>
+                <span>Reports</span>
+            </div>
+            <div class="nav-item" style="margin-top: 16px;">
+                <span class="material-icons-outlined">science</span>
+                <span>Experiments</span>
+            </div>
+            <div class="nav-item">
+                <span class="material-icons-outlined">folder</span>
+                <span>Resources</span>
+                <span style="font-size: 8px; color: #1a73e8; margin-left: auto;">●</span>
+            </div>
+            <div class="nav-item">
+                <span class="material-icons-outlined">settings</span>
+                <span>Advertiser settings</span>
+            </div>
+            <div class="nav-item">
+                <span class="material-icons-outlined">history</span>
+                <span>History</span>
+            </div>
+        </sidebar>
+
+        <!-- Main Content View -->
+        <div class="content">
+            <div class="page-header">
+                <h1 class="page-title">All audiences</h1>
+                
+                <!-- Category Tabs -->
+                <div class="tabs-container">
+                    <div class="tab">GENERAL</div>
+                    <div class="tab active">CUSTOM LISTS</div>
+                    <div class="tab">COMBINED</div>
+                </div>
+            </div>
+
+            <!-- Action Ribbon -->
+            <div class="action-bar">
+                <button class="btn-primary">NEW CUSTOM LIST</button>
+                <span class="material-icons-outlined filter-icon">filter_list</span>
+            </div>
+
+            <!-- Audience Data Table -->
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 40%;">Name</th>
+                            <th style="width: 30%;">List Type</th>
+                            <th style="width: 30%;">Network Compatibility</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="#" class="link-text">Test</a></td>
+                            <td>Custom Affinity</td>
+                            <td>Display, Video, YouTube</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="link-text">Online Shoppers</a></td>
+                            <td>Custom Affinity</td>
+                            <td>Display, Video, YouTube</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="link-text">Womens Apparel</a></td>
+                            <td>Custom Affinity</td>
+                            <td>Display, Video, YouTube</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="link-text">Automotive</a></td>
+                            <td>Custom Affinity</td>
+                            <td>Display, Video, YouTube</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="link-text">Skiing and Winter Sports</a></td>
+                            <td>Custom Affinity</td>
+                            <td>Display, Video, YouTube</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="link-text">Look Alikes</a></td>
+                            <td>Custom Affinity</td>
+                            <td>Display, Video, YouTube</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="link-text">Womens Interests</a></td>
+                            <td>Custom Affinity</td>
+                            <td>Display, Video, YouTube</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="link-text">Toy Boxes</a></td>
+                            <td>Custom Affinity</td>
+                            <td>Display, Video, YouTube</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="link-text">Aulani Family Prospecting</a></td>
+                            <td>Custom Affinity</td>
+                            <td>Display, Video, YouTube</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="link-text">Food Truck</a></td>
+                            <td>Custom Affinity</td>
+                            <td>Display, Video, YouTube</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="link-text">Drums and Musical Instruments</a></td>
+                            <td>Custom Affinity</td>
+                            <td>Display, Video, YouTube</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="link-text">Veterans United</a></td>
+                            <td>Custom Affinity</td>
+                            <td>Display, Video, YouTube</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Right Side Tool Panel -->
+        <div class="right-sidebar">
+            <span class="material-icons-outlined right-icon">auto_awesome</span>
+            <span class="material-icons-outlined right-icon">help_outline</span>
+        </div>
+    </div>
+
+</body>
+</html>
