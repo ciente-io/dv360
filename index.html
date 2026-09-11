@@ -1,809 +1,707 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display & Video 360 - Advertiser Dashboard</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-            font-size: 13px;
-            color: #202124;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earn ₹300–₹1000 for Every Approved Reference</title>
+<meta name="description" content="Content writers can earn ₹300–₹1000 every time an approved reference to our website is added to a published article. Fast UPI or bank transfer.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
 
-        body {
-            background-color: #ffffff;
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
+:root{
+  --ink:#101820;
+  --muted:#617078;
+  --teal:#00A896;
+  --teal-hover:#008B7D;
+  --cream:#f8fbf9;
+  --line:#dce8e5;
+  --white:#fff;
+  --shadow:0 24px 70px rgba(16,24,32,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--ink);background:var(--cream);
+  font-family:"DM Sans",sans-serif;line-height:1.55;
+}
+a{text-decoration:none;color:inherit}
+.container{width:min(1160px,92%);margin:auto}
 
-        /* Top Navbar */
-        .top-navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 48px;
-            background: #ffffff;
-            border-bottom: 1px solid #dadce0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 16px;
-            z-index: 100;
-        }
+/* Navigation Styles */
+.nav{
+  padding:15px 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid rgba(220,232,229,.8);
+  flex-wrap:wrap;
+  gap:15px;
+}
+.logo{font-family:Manrope;font-size:22px;font-weight:800;letter-spacing:-.6px}
+.logo span{color:var(--teal)}
 
-        .top-nav-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+/* UNIFIED TURQUOISE BUTTONS WITH ZOOM-IN ANIMATION */
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
-        .menu-icon {
-            cursor: pointer;
-            padding: 8px;
-            color: #5f6368;
-        }
+.nav-btn, .btn, .tab-btn {
+  position: relative;
+  background: var(--teal);
+  color: var(--white) !important;
+  border: 1px solid var(--teal);
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0, 168, 150, 0.25);
+  
+  /* Zoom-in Entrance Animation */
+  opacity: 0;
+  transform: scale(0.3);
+  animation: zoomIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+}
 
-        .brand-logo {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #5f6368;
-        }
+/* Staggered entrance delay for navbar buttons */
+.nav-btn:nth-child(1) { animation-delay: 0.05s; }
+.nav-btn:nth-child(2) { animation-delay: 0.15s; }
+.nav-btn:nth-child(3) { animation-delay: 0.25s; }
+.nav-btn:nth-child(4) { animation-delay: 0.35s; }
 
-        .brand-logo svg {
-            width: 20px;
-            height: 20px;
-        }
+/* Interactive Hover State with Zoom-In effect */
+.nav-btn:hover, .btn:hover, .tab-btn:hover {
+  background: var(--teal-hover);
+  border-color: var(--teal-hover);
+  transform: scale(1.08) !important;
+  box-shadow: 0 8px 22px rgba(0, 168, 150, 0.4);
+}
 
-        .breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-left: 12px;
-            color: #5f6368;
-        }
+.tab-btn.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  box-shadow: 0 6px 18px rgba(16, 24, 32, 0.3);
+}
 
-        .breadcrumb-subtitle {
-            font-size: 10px;
-            color: #70757a;
-        }
+.nav-btn:active, .btn:active, .tab-btn:active {
+  transform: scale(0.96) !important;
+}
 
-        .breadcrumb-title {
-            font-size: 13px;
-            font-weight: 500;
-            color: #202124;
-        }
+/* Keyframe Animations */
+@keyframes zoomIn {
+  0% { opacity: 0; transform: scale(0.3); }
+  100% { opacity: 1; transform: scale(1); }
+}
 
-        .top-nav-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
+.hero{padding:40px 0 50px;position:relative;overflow:hidden}
+.hero:before{
+  content:"";position:absolute;width:430px;height:430px;border-radius:50%;
+  background:rgba(0,168,150,.10);right:-160px;top:-130px;filter:blur(3px)
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:50px;align-items:center}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:999px;
+  background:#e5f7f5;color:var(--teal);font-weight:700;font-size:13px
+}
+.badge i{width:7px;height:7px;border-radius:50%;background:var(--teal);display:block}
+h1{
+  font-family:Manrope;font-size:clamp(40px,5.5vw,68px);line-height:1.05;
+  letter-spacing:-3px;margin:20px 0 10px;max-width:760px
+}
+h1 em{font-style:normal;color:var(--teal)}
 
-        .nav-icon {
-            color: #5f6368;
-            cursor: pointer;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+h2.hero-subhead {
+  font-family: Manrope, sans-serif;
+  font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: -0.5px;
+  margin: 0 0 18px 0;
+  line-height: 1.25;
+}
 
-        .user-avatar {
-            width: 28px;
-            height: 28px;
-            background-color: #4285f4;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 500;
-            font-size: 13px;
-        }
+.hero-copy{font-size:17px;color:var(--muted);max-width:660px;line-height:1.6}
+.hero-actions{display:flex;gap:12px;margin:25px 0 18px;flex-wrap:wrap}
 
-        /* Left Collapsible/Expandable Sidebar */
-        .sidebar {
-            width: 220px;
-            background: #f8f9fa;
-            border-right: 1px solid #dadce0;
-            margin-top: 48px;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            padding-top: 8px;
-        }
+.btn-large {
+  padding: 14px 28px;
+  font-size: 15px;
+}
 
-        details.nav-group {
-            width: 100%;
-            margin-bottom: 2px;
-        }
+.micro{font-size:13px;color:#718086}
 
-        summary.nav-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 16px;
-            color: #3c4043;
-            font-weight: 500;
-            cursor: pointer;
-            list-style: none;
-            user-select: none;
-            position: relative;
-        }
+/* SECOND SECTION WITH 4 BUTTONS */
+.interactive-nav-section {
+  padding: 24px 0 40px;
+  background: #ffffff;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 40px;
+}
 
-        summary.nav-header.resources-header {
-            color: #0f9d58;
-        }
+.button-bar {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
 
-        summary.nav-header::-webkit-details-marker {
-            display: none;
-        }
+.dynamic-tab-content {
+  margin-top: 30px;
+  display: none;
+  animation: fadeIn 0.4s ease-out;
+}
 
-        summary.nav-header::before {
-            content: "▾";
-            font-size: 10px;
-            color: #5f6368;
-            position: absolute;
-            left: 6px;
-            transition: transform 0.2s;
-        }
+.dynamic-tab-content.active {
+  display: block;
+}
 
-        details[open] > summary.nav-header::before {
-            transform: rotate(0deg);
-        }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-        details:not([open]) > summary.nav-header::before {
-            transform: rotate(-90deg);
-        }
+/* Card & Grid Styling for Dynamic Content */
+.eligibility-card {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+}
 
-        summary.nav-header:hover {
-            background-color: #f1f3f4;
-        }
+.eligibility-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-        .standalone-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 16px 8px 24px;
-            color: #3c4043;
-            font-weight: 500;
-            text-decoration: none;
-            cursor: pointer;
-        }
+.eligibility-list li {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 16px;
+  font-weight: 600;
+}
 
-        .standalone-item:hover {
-            background-color: #f1f3f4;
-        }
+.eligibility-list li:last-child { border: 0; }
 
-        .standalone-item.active {
-            background-color: #e8f0fe;
-            color: #1a73e8;
-            border-radius: 0 20px 20px 0;
-            margin-right: 8px;
-        }
+.eligibility-list a {
+  color: var(--teal);
+  text-decoration: underline;
+  font-size: 14px;
+  display: inline-block;
+  margin-top: 4px;
+}
 
-        .sub-menu {
-            display: flex;
-            flex-direction: column;
-            padding-left: 44px;
-            padding-top: 2px;
-            padding-bottom: 4px;
-        }
+.proofs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
 
-        .sub-item {
-            padding: 6px 8px;
-            color: #3c4043;
-            text-decoration: none;
-            cursor: pointer;
-            font-size: 13px;
-            border-radius: 0 16px 16px 0;
-            margin-right: 8px;
-        }
+.payment-proof-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
 
-        .sub-item:hover {
-            color: #1a73e8;
-        }
+.payment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
 
-        .sub-item.active {
-            color: #ffffff;
-            background-color: #1a73e8;
-            font-weight: 500;
-        }
+.payment-name { font-weight: 800; font-family: Manrope; font-size: 16px; }
+.payment-amount { color: #059669; font-weight: 800; font-size: 18px; }
+.payment-status { background: #d1fae5; color: #065f46; font-size: 11px; padding: 4px 10px; border-radius: 999px; font-weight: 700; }
 
-        /* Main Content Container */
-        .workspace {
-            flex: 1;
-            margin-top: 48px;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            background: #ffffff;
-        }
+.examples-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
 
-        .view-section {
-            display: none;
-            flex-direction: column;
-            height: 100%;
-        }
+.example-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 24px;
+}
 
-        .view-section.active {
-            display: flex;
-        }
+.example-anchor {
+  background: #e5f7f5;
+  color: var(--teal);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
 
-        .workspace-header {
-            padding: 16px 24px 0 24px;
-            position: relative;
-        }
+/* Calculator & Hero Card */
+.earn-card{
+  background:var(--white);border:1px solid var(--line);border-radius:28px;padding:30px;
+  box-shadow:var(--shadow);position:relative
+}
+.earn-card:after{
+  content:"₹";position:absolute;right:20px;top:7px;font-family:Manrope;font-size:150px;
+  font-weight:800;color:#eff8f6;z-index:0
+}
+.card-inner{position:relative;z-index:1}
+.card-top{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted)}
+.amount{font-family:Manrope;font-size:52px;letter-spacing:-3px;font-weight:800;margin:5px 0}
+.amount small{font-family:"DM Sans";font-size:16px;letter-spacing:0;color:var(--muted);font-weight:600}
 
-        .workspace-title {
-            font-size: 22px;
-            font-weight: 400;
-            color: #202124;
-            margin-bottom: 16px;
-        }
+.card-calc {
+  background: #f4faf8;
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 20px;
+  border: 1px solid var(--line);
+}
+.card-calc-title {
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.card-calc-subtitle {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.35;
+  margin-bottom: 16px;
+}
+.calc-field { margin-bottom: 18px; }
+.calc-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.calc-field label { font-size: 12px; font-weight: 700; color: var(--ink); }
+.slider-val-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--teal);
+  background: #e5f7f5;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,168,150,0.2);
+}
 
-        .feedback-icon {
-            position: absolute;
-            top: 16px;
-            right: 24px;
-            background: #5f6368;
-            color: white;
-            padding: 4px 6px;
-            border-radius: 2px;
-            font-size: 11px;
-            cursor: pointer;
-        }
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 4px;
+  background: var(--line);
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--teal);
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0,168,150,0.4);
+  cursor: pointer;
+}
 
-        .tabs {
-            display: flex;
-            gap: 24px;
-            border-bottom: 1px solid #dadce0;
-        }
+.calc-output-box {
+  background: #f1fcf9;
+  border: 1.5px solid var(--teal);
+  border-radius: 16px;
+  padding: 14px 18px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-        .tab {
-            padding: 8px 0;
-            color: #5f6368;
-            font-weight: 500;
-            border-bottom: 2px solid transparent;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 0.3px;
-        }
+.calc-output-label { font-size: 13px; font-weight: 700; color: #101820; }
+.calc-output-badge { background: #e5f7f5; color: var(--teal); font-size: 11px; padding: 3px 9px; border-radius: 999px; font-weight: 700; }
+.calc-output-val { font-family: Manrope, sans-serif; font-size: 26px; font-weight: 800; color: var(--teal); }
 
-        .tab.active {
-            color: #0f9d58;
-            border-bottom: 2px solid #0f9d58;
-        }
+.stats{background:var(--ink);color:white;padding:32px 0}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.stat{text-align:center;padding:12px;border-right:1px solid rgba(255,255,255,.12)}
+.stat:last-child{border:0}.stat strong{display:block;font-family:Manrope;font-size:25px}.stat span{font-size:13px;color:#bdc9ca}
 
-        .tab-campaign.active {
-            color: #1a73e8;
-            border-bottom: 2px solid #1a73e8;
-        }
+.section{padding:60px 0}
+.section-head{max-width:690px;margin-bottom:42px}
+.kicker{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.8px;color:var(--teal)}
+h2{font-family:Manrope;font-size:clamp(34px,4vw,52px);line-height:1.08;letter-spacing:-2.2px;margin:9px 0 14px}
+.section-head p{color:var(--muted);font-size:17px}
 
-        .action-bar {
-            padding: 12px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.step{background:white;border:1px solid var(--line);border-radius:20px;padding:25px;min-height:220px;position:relative}
+.step-num{font-family:Manrope;font-size:13px;font-weight:800;color:var(--teal)}
+.step h3{font-family:Manrope;font-size:21px;margin:42px 0 8px}
+.step p{color:var(--muted);font-size:14px;margin:0}
+.arrow{position:absolute;right:18px;top:22px;color:#b4c4c1;font-size:20px}
 
-        .btn-green {
-            background-color: #0f9d58;
-            color: white;
-            border: none;
-            border-radius: 2px;
-            padding: 8px 12px;
-            font-weight: 500;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-size: 12px;
-        }
+footer{padding:30px 0 45px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:20px}
 
-        .btn-primary {
-            background-color: #1a73e8;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 8px 16px;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .btn-date {
-            background: #ffffff;
-            border: 1px solid #dadce0;
-            border-radius: 4px;
-            padding: 6px 12px;
-            cursor: pointer;
-            color: #3c4043;
-            margin-left: 12px;
-        }
-
-        .filter-bar {
-            padding: 8px 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-top: 1px solid #f1f3f4;
-            border-bottom: 1px solid #dadce0;
-            background: #ffffff;
-        }
-
-        .filter-label {
-            color: #5f6368;
-        }
-
-        .filter-chip {
-            background: #e8eaed;
-            color: #3c4043;
-            border-radius: 16px;
-            padding: 4px 10px;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .filter-input-text {
-            color: #5f6368;
-            cursor: pointer;
-        }
-
-        .filter-input {
-            border: none;
-            outline: none;
-            flex: 1;
-            padding: 4px;
-            color: #5f6368;
-        }
-
-        .table-container {
-            flex: 1;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        th {
-            padding: 10px 16px;
-            font-size: 11px;
-            font-weight: 500;
-            color: #5f6368;
-            border-bottom: 1px solid #dadce0;
-        }
-
-        td {
-            padding: 12px 16px;
-            border-bottom: 1px solid #e8eaed;
-            color: #3c4043;
-        }
-
-        .status-dot {
-            height: 8px;
-            width: 8px;
-            background-color: #1e8e3e;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 8px;
-        }
-
-        .campaign-name {
-            color: #1a73e8;
-            cursor: pointer;
-        }
-
-        .campaign-id {
-            color: #70757a;
-            font-size: 11px;
-            margin-left: 8px;
-        }
-
-        .numeric {
-            text-align: right;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            padding: 12px 24px;
-            gap: 16px;
-            color: #5f6368;
-            font-size: 12px;
-            border-top: 1px solid #f1f3f4;
-        }
-
-        /* Empty State */
-        .empty-state-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #f8f9fa;
-        }
-
-        .empty-state-icon {
-            width: 64px;
-            height: 64px;
-            background-color: #9e9e9e;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-        }
-
-        .empty-state-icon::before {
-            content: "≡";
-            color: white;
-            font-size: 32px;
-            font-weight: bold;
-        }
-
-        .empty-state-link {
-            color: #3b78e7;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 12px;
-            letter-spacing: 0.3px;
-            cursor: pointer;
-        }
-
-        /* Fixed Far-Right Action Icons */
-        .right-system-bar {
-            width: 40px;
-            background: #ffffff;
-            border-left: 1px solid #dadce0;
-            margin-top: 48px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 12px;
-            gap: 16px;
-        }
-    </style>
+@media(max-width:850px){
+ .hero-grid{grid-template-columns:1fr}
+ .steps,.proofs-grid,.examples-grid{grid-template-columns:1fr}
+ .stats-grid{grid-template-columns:1fr}
+ .stat{border-right:0;border-bottom:1px solid rgba(255,255,255,.12)}
+}
+</style>
 </head>
 <body>
 
-    <!-- Header Navigation Bar -->
-    <header class="top-navbar">
-        <div class="top-nav-left">
-            <span class="menu-icon">☰</span>
-            <div class="brand-logo">
-                <svg viewBox="0 0 24 24" fill="#34A853"><path d="M8 5v14l11-7z"/></svg>
-                Display & Video 360
-            </div>
-            <div class="breadcrumb">
-                <span>&gt;</span>
-                <div>
-                    <div class="breadcrumb-subtitle">Advertiser</div>
-                    <a href="CampaignLevel.html" style="text-decoration: none; color: inherit;">
-                        <div class="breadcrumb-title">Adbell Media</div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="top-nav-right">
-            <span class="nav-icon">🔍</span>
-            <span class="nav-icon">🔔</span>
-            <span class="nav-icon">👥</span>
-            <span class="nav-icon">☑️</span>
-            <span class="nav-icon">📊</span>
-            <span class="nav-icon">💬</span>
-            <span class="nav-icon">⚙️</span>
-            <div class="user-avatar">K</div>
-        </div>
-    </header>
+<header class="container nav">
+  <div class="logo">Reference<span>Rewards</span></div>
+  <nav class="nav-buttons">
+    <a class="nav-btn" href="mailto:support@example.com">Email Us</a>
+    <a class="nav-btn" href="https://www.linkedin.com" target="_blank" rel="noopener">Connect me with linkedin</a>
+    <a class="nav-btn" href="https://www.linkedin.com" target="_blank" rel="noopener">Join Linkedin Group</a>
+    <a class="nav-btn" href="#submit">Submit your request now</a>
+  </nav>
+</header>
 
-    <div style="display: flex; width: 100%;">
+<main>
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="badge"><i></i> For content writers & contributors</span>
+      <h1>Writers, Get paid when you <em>cite us</em> in your blog.</h1>
+      <h2 class="hero-subhead">You don't need a separate writing assignment for us.</h2>
+      
+      <p class="hero-copy">
+        While creating articles for your company or existing clients, simply reference our website as a source wherever relevant. Submit your published article, and earn <strong>₹300–₹1000</strong> for every approved mention. We dont reveal your identity to anyone.
+      </p>
+      
+      <div class="hero-actions">
+        <a class="btn btn-large" href="#submit">Get to know Your first citation domain now →</a>
         
-        <!-- Collapsible Accordion Navigation Sidebar -->
-        <nav class="sidebar">
-            <a class="standalone-item active" id="campaigns-btn">
-                <span>🎯</span> Campaigns
-            </a>
-
-            <!-- Audiences Dropdown Section -->
-            <details class="nav-group" open>
-                <summary class="nav-header">
-                    <span>👥</span> Audiences
-                </summary>
-                <div class="sub-menu">
-                    <a class="sub-item" href="audience-dashboard.html">All audiences</a>
-                    <a class="sub-item">Analysis</a>
-                </div>
-            </details>
-
-            <!-- Creative Dropdown Section -->
-            <details class="nav-group" open>
-                <summary class="nav-header">
-                    <span>🖼️</span> Creative
-                </summary>
-                <div class="sub-menu">
-                    <a class="sub-item">Creatives</a>
-                    <a class="sub-item">Preview sheets</a>
-                    <a class="sub-item">Format gallery</a>
-                    <a class="sub-item">Appeal history</a>
-                </div>
-            </details>
-
-            <!-- Inventory Dropdown Section -->
-            <details class="nav-group" open>
-                <summary class="nav-header">
-                    <span>📋</span> Inventory
-                </summary>
-                <div class="sub-menu">
-                    <a class="sub-item" id="plans-btn">Plans</a>
-                    <a class="sub-item">My inventory</a>
-                    <a class="sub-item">Marketplace</a>
-                    <a class="sub-item">Negotiations</a>
-                </div>
-            </details>
-
-            <!-- Reports Dropdown Section -->
-            <details class="nav-group" open>
-                <summary class="nav-header">
-                    <span>📊</span> Reports
-                </summary>
-                <div class="sub-menu">
-                    <a class="sub-item">Instant & offline</a>
-                    <a class="sub-item">Cross-media reach</a>
-                </div>
-            </details>
-
-            <a class="standalone-item">
-                <span>🧪</span> Experiments
-            </a>
-            <a class="standalone-item">
-                <span>💡</span> Suggestions
-            </a>
-            
-            <!-- Resources Dropdown Section -->
-            <details class="nav-group" open>
-                <summary class="nav-header resources-header">
-                    <span>📁</span> Resources
-                </summary>
-                <div class="sub-menu">
-                    <a class="sub-item">Brand Controls</a>
-                    <a class="sub-item">Channels & Keywords</a>
-                    <a class="sub-item" id="floodlight-btn">Floodlight Group</a>
-                    <a class="sub-item">Triggers</a>
-                    <a class="sub-item">YouTube Extensions</a>
-                    <a class="sub-item">Location Lists</a>
-                    <a class="sub-item">Experiments and Lift</a>
-                </div>
-            </details>
-
-            <a class="standalone-item">
-                <span>⚙️</span> Advertiser settings
-            </a>
-            <a class="standalone-item">
-                <span>🕒</span> History
-            </a>
-        </nav>
-
-        <!-- Main Workspace Area -->
-        <main class="workspace">
-            
-            <!-- VIEW 1: Campaigns View -->
-            <div id="campaigns-view" class="view-section active">
-                <div class="workspace-header">
-                    <h1 class="workspace-title">Campaigns</h1>
-                    <div class="tabs">
-                        <div class="tab tab-campaign active">Campaigns</div>
-                        <div class="tab tab-campaign">Insertion orders</div>
-                    </div>
-                </div>
-
-                <div class="action-bar">
-                    <div>
-                        <a href="new-campaign.html" style="text-decoration: none;">
-                            <button class="btn-primary">New campaign</button>
-                        </a>
-                        <button class="btn-date">Dec 19, 2024 ▼</button>
-                    </div>
-                    <div>
-                        <span class="nav-icon">🌪️</span>
-                        <span class="nav-icon">⋮</span>
-                    </div>
-                </div>
-
-                <div class="filter-bar">
-                    <span style="color: #1a73e8;">🔍</span>
-                    <div class="filter-chip">
-                        Status: Active <span style="cursor: pointer; margin-left: 4px;">✕</span>
-                    </div>
-                    <input type="text" class="filter-input" placeholder="Enter a search term or select filters">
-                    <span style="cursor: pointer; color: #70757a;">✕</span>
-                </div>
-
-                <!-- Main Table Section -->
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="width: 30px;"><input type="checkbox"></th>
-                                <th>Campaign</th>
-                                <th>Delivery</th>
-                                <th class="numeric">Budget</th>
-                                <th class="numeric">Spent</th>
-                                <th class="numeric">KPI Goal</th>
-                                <th class="numeric">KPI Actual</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>
-                                    <span class="status-dot"></span>
-                                    <span class="campaign-name">Campaign_Display_Search_2024</span>
-                                    <span class="campaign-id">2385107</span>
-                                </td>
-                                <td>—</td>
-                                <td class="numeric">Unknown</td>
-                                <td class="numeric">A$2,943.38</td>
-                                <td class="numeric">A$30.00 CPA</td>
-                                <td class="numeric">A$0.30 CPA</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>
-                                    <span class="status-dot"></span>
-                                    <span class="campaign-name">AU_Video_Awareness_Q4</span>
-                                    <span class="campaign-id">53987540</span>
-                                </td>
-                                <td>—</td>
-                                <td class="numeric">A$220,000.00</td>
-                                <td class="numeric">A$6,295.74</td>
-                                <td class="numeric">-</td>
-                                <td class="numeric">-</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="pagination">
-                    <span>Show rows:</span>
-                    <select style="border: 1px solid #dadce0; padding: 2px 4px; border-radius: 4px;">
-                        <option>20</option>
-                        <option>50</option>
-                    </select>
-                    <span>1–2 of 2</span>
-                </div>
-            </div>
-
-            <!-- VIEW 2: Floodlight Group View -->
-            <div id="floodlight-view" class="view-section">
-                <div class="workspace-header">
-                    <h1 class="workspace-title">Floodlight Group</h1>
-                    <span class="feedback-icon">💬</span>
-                    <div class="tabs">
-                        <div class="tab">BASIC DETAILS</div>
-                        <div class="tab active">FLOODLIGHT ACTIVITIES</div>
-                        <div class="tab">HISTORY</div>
-                    </div>
-                </div>
-
-                <div class="action-bar">
-                    <a href="floodlight.html" style="text-decoration: none;">
-                        <button class="btn-green" type="button">NEW FLOODLIGHT ACTIVITY</button>
-                    </a>
-                </div>
-
-                <div class="filter-bar">
-                    <span class="filter-label">Filter</span>
-                    <div class="filter-chip">
-                        Status: Active <span style="cursor: pointer; margin-left: 4px;">✕</span>
-                    </div>
-                    <span class="filter-input-text">Add filter</span>
-                    <span style="cursor: pointer; color: #70757a; margin-left: auto;">✕</span>
-                </div>
-
-                <!-- Empty State View -->
-                <div class="empty-state-container">
-                    <div class="empty-state-icon"></div>
-                    <a class="empty-state-link">NEW FLOODLIGHT ACTIVITY</a>
-                </div>
-            </div>
-
-            <!-- VIEW 3: Plans View -->
-            <div id="plans-view" class="view-section">
-                <div class="workspace-header">
-                    <h1 class="workspace-title">Plans</h1>
-                </div>
-
-                <div class="action-bar" style="background-color: #f8f9fa; border-bottom: 1px solid #dadce0;">
-                    <button class="btn-primary">New plan</button>
-                    <span class="nav-icon">🌪️</span>
-                </div>
-
-                <div class="filter-bar">
-                    <span style="color: #5f6368;">🌪️</span>
-                    <input type="text" class="filter-input" placeholder="Enter a search term or select filters">
-                    <span style="cursor: pointer; color: #70757a;">✕</span>
-                </div>
-
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="width: 30px;"><input type="checkbox"></th>
-                                <th>Plan</th>
-                                <th>Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Table remains empty to match screenshot empty state -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </main>
-
-        <!-- Tool Drawer Icons Column -->
-        <aside class="right-system-bar">
-            <span class="nav-icon">📝</span>
-            <span class="nav-icon">❓</span>
-            <span class="nav-icon">🔄</span>
-        </aside>
-
+      </div>
+      
+      <div class="micro"> - No spam. Try first request > Exit if you dont like > you loose nothing </div>
+      <div class="micro"> - Try first request > if you get payment in 1 hour > stay connected and earn more </div>
     </div>
 
-    <!-- JavaScript Navigation Handling -->
-    <script>
-        const floodlightBtn = document.getElementById('floodlight-btn');
-        const campaignsBtn = document.getElementById('campaigns-btn');
-        const plansBtn = document.getElementById('plans-btn');
+    <div class="earn-card">
+      <div class="card-inner">
+        <div class="card-top">Your potential payout</div>
+        <div class="amount">₹300–₹1000 <small>/ per approved link</small></div>
 
-        const floodlightView = document.getElementById('floodlight-view');
-        const campaignsView = document.getElementById('campaigns-view');
-        const plansView = document.getElementById('plans-view');
+        <div class="card-calc">
+          <div class="card-calc-title">Monthly Income Calculator</div>
+          <div class="card-calc-subtitle">Traffic + monthly content you publish for your company = total income</div>
+          
+          <div class="calc-field">
+            <div class="calc-header-row">
+              <label for="cardTier">Select your website traffic</label>
+              <span class="slider-val-badge" id="trafficBadge">Traffic 2,000 + DA 30 = ₹200</span>
+            </div>
+            <input type="range" id="cardTier" min="0" max="4" step="1" value="1" oninput="triggerCalculation()">
+          </div>
 
-        function resetActiveStates() {
-            campaignsView.classList.remove('active');
-            floodlightView.classList.remove('active');
-            plansView.classList.remove('active');
+          <div class="calc-field">
+            <div class="calc-header-row">
+              <label for="cardBlogs">How many blogs you publish in your company</label>
+              <span class="slider-val-badge" id="blogsBadge">10 Blogs</span>
+            </div>
+            <input type="range" id="cardBlogs" min="1" max="100" step="1" value="10" oninput="triggerCalculation()">
+          </div>
+          
+          <div class="calc-output-box" id="calcOutputBox">
+            <div class="calc-output-left">
+              <span class="calc-output-label">Your expected monthly income</span>
+              <span class="calc-output-badge">✨ Calculated</span>
+            </div>
+            <span class="calc-output-val" id="cardIncomeVal">₹5,000</span>
+          </div>
 
-            campaignsBtn.classList.remove('active');
-            floodlightBtn.classList.remove('active');
-            plansBtn.classList.remove('active');
-        }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        floodlightBtn.addEventListener('click', () => {
-            resetActiveStates();
-            floodlightView.classList.add('active');
-            floodlightBtn.classList.add('active');
-        });
+<!-- SECOND SECTION: 4 INTERACTIVE BUTTONS WITH DYNAMIC TAB CONTENT -->
+<section class="interactive-nav-section" id="interactive-section">
+  <div class="container">
+    <div class="button-bar">
+      <button class="tab-btn active" onclick="switchTab('tab-steps', this)">4 Steps Pay</button>
+      <button class="tab-btn" onclick="switchTab('tab-eligibility', this)">Know your website eligibility</button>
+      <button class="tab-btn" onclick="switchTab('tab-proofs', this)">Proofs</button>
+      <button class="tab-btn" onclick="switchTab('tab-examples', this)">Examples</button>
+    </div>
 
-        campaignsBtn.addEventListener('click', () => {
-            resetActiveStates();
-            campaignsView.classList.add('active');
-            campaignsBtn.classList.add('active');
-        });
+    <!-- CONTENT 1: 4 STEPS PAY -->
+    <div id="tab-steps" class="dynamic-tab-content active">
+      <div class="section-head" style="margin: 30px auto 30px; text-align:center;">
+        <div class="kicker">The process</div>
+        <h2>Four steps. That's it.</h2>
+        <p>Keep doing what you already do as a content writer. When a relevant source fits naturally, reference it and submit the published URL.</p>
+      </div>
 
-        plansBtn.addEventListener('click', () => {
-            resetActiveStates();
-            plansView.classList.add('active');
-            plansBtn.classList.add('active');
-        });
-    </script>
+      <div class="steps">
+        <article class="step">
+          <div class="step-num">01</div><div class="arrow">→</div>
+          <h3>Write your article</h3>
+          <p>Write for whichever company, publication or client you are working with.</p>
+        </article>
+        <article class="step">
+          <div class="step-num">02</div><div class="arrow">→</div>
+          <h3>Add a reference</h3>
+          <p>When genuinely relevant, reference a useful blog or resource from our website.</p>
+        </article>
+        <article class="step">
+          <div class="step-num">03</div><div class="arrow">→</div>
+          <h3>Send the live link</h3>
+          <p>Submit the URL of your published article so the reference can be reviewed.</p>
+        </article>
+        <article class="step">
+          <div class="step-num">04</div>
+          <h3>Get paid</h3>
+          <p>Once approved, receive the applicable payout through UPI or bank transfer.</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- CONTENT 2: ELIGIBILITY -->
+    <div id="tab-eligibility" class="dynamic-tab-content">
+      <div class="eligibility-card">
+        <div class="kicker" style="text-align:center; margin-bottom:10px;">Requirements</div>
+        <h2 style="text-align:center; font-size:32px; margin-bottom:20px;">Website Eligibility Criteria</h2>
+        <ul class="eligibility-list">
+          <li>
+            • <strong>Website Authority must be above 20+</strong>
+            <br>
+            <br>
+            <span style="font-weight:400; color:var(--muted); font-size:14px;">(Domain Authority must be above 20 with less than 5% spam score.)
+          
+            <a href="https://ahrefs.com/website-authority-checker" target="_blank" rel="noopener">Check authority on Ahrefs →</a>
+          </li>
+          <li>
+            • <strong>Organic Traffic must be above 2000+</strong>
+            <br>
+            <a href="https://ahrefs.com/traffic-checker" target="_blank" rel="noopener">Check traffic here on Ahrefs →</a>
+          </li>
+          <li>
+            • <strong>Website Authenticity</strong>
+            <br>
+            <span style="font-weight:400; color:var(--muted); font-size:14px;">(Website must drive organic traffic, organic traffic must be from difference blogs and not only from homepage or service page, Traffic driving keywords must be authentic and not just random queries
+          
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CONTENT 3: PROOFS -->
+    <div id="tab-proofs" class="dynamic-tab-content">
+      <div class="section-head" style="margin: 20px auto 30px; text-align:center;">
+        <div class="kicker">Verified Transactions</div>
+        <h2>Recent Payment Proofs</h2>
+      </div>
+      <div class="proofs-grid">
+        <div class="payment-proof-card">
+          <div class="payment-header">
+            <span class="payment-name">Aarav Sharma</span>
+            <span class="payment-status">✓ Paid UPI</span>
+          </div>
+          <div class="payment-amount">₹1,000.00</div>
+          <p style="font-size:12px; color:var(--muted); margin:6px 0 0;">Ref ID: UPI/4092817291/Approved</p>
+        </div>
+
+        <div class="payment-proof-card">
+          <div class="payment-header">
+            <span class="payment-name">Priya Patel</span>
+            <span class="payment-status">✓ Paid UPI</span>
+          </div>
+          <div class="payment-amount">₹700.00</div>
+          <p style="font-size:12px; color:var(--muted); margin:6px 0 0;">Ref ID: UPI/4092818932/Approved</p>
+        </div>
+
+        <div class="payment-proof-card">
+          <div class="payment-header">
+            <span class="payment-name">Rohan Mehta</span>
+            <span class="payment-status">✓ Bank Transfer</span>
+          </div>
+          <div class="payment-amount">₹1,000.00</div>
+          <p style="font-size:12px; color:var(--muted); margin:6px 0 0;">Ref ID: NEFT/IMPS/8821931/Paid</p>
+        </div>
+
+        <div class="payment-proof-card">
+          <div class="payment-header">
+            <span class="payment-name">Ananya Iyer</span>
+            <span class="payment-status">✓ Paid UPI</span>
+          </div>
+          <div class="payment-amount">₹500.00</div>
+          <p style="font-size:12px; color:var(--muted); margin:6px 0 0;">Ref ID: UPI/4092819830/Approved</p>
+        </div>
+
+        <div class="payment-proof-card">
+          <div class="payment-header">
+            <span class="payment-name">Vikram Verma</span>
+            <span class="payment-status">✓ Paid UPI</span>
+          </div>
+          <div class="payment-amount">₹850.00</div>
+          <p style="font-size:12px; color:var(--muted); margin:6px 0 0;">Ref ID: UPI/4092821049/Approved</p>
+        </div>
+
+        <div class="payment-proof-card">
+          <div class="payment-header">
+            <span class="payment-name">Sneha Kulkarni</span>
+            <span class="payment-status">✓ Bank Transfer</span>
+          </div>
+          <div class="payment-amount">₹600.00</div>
+          <p style="font-size:12px; color:var(--muted); margin:6px 0 0;">Ref ID: IMPS/90128472/Paid</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT 4: EXAMPLES -->
+    <div id="tab-examples" class="dynamic-tab-content">
+      <div class="section-head" style="margin: 20px auto 30px; text-align:center;">
+        <div class="kicker">Live Placement Samples</div>
+        <h2>Anchor Text & Hyperlink Examples</h2>
+      </div>
+      <div class="examples-grid">
+        <div class="example-card">
+          <div class="example-anchor">Anchor Text: B2B Lead Generation Guide</div>
+          <p style="font-size:14px; color:var(--muted);">
+            "When scaling outbound sales pipelines, teams often rely on comprehensive <a href="#" style="color:var(--teal); font-weight:700;">B2B lead generation guides</a> to standardise their outreach."
+          </p>
+          <div style="font-size:12px; color:var(--teal); margin-top:10px; font-weight:600;">Target URL: https://yoursite.com/b2b-lead-generation</div>
+        </div>
+
+        <div class="example-card">
+          <div class="example-anchor">Anchor Text: SaaS Growth Strategies</div>
+          <p style="font-size:14px; color:var(--muted);">
+            "Reducing churn rate is key to sustainable revenue. Implementing proven <a href="#" style="color:var(--teal); font-weight:700;">SaaS growth strategies</a> ensures long-term expansion."
+          </p>
+          <div style="font-size:12px; color:var(--teal); margin-top:10px; font-weight:600;">Target URL: https://yoursite.com/saas-growth-strategies</div>
+        </div>
+
+        <div class="example-card">
+          <div class="example-anchor">Anchor Text: Content Marketing ROI</div>
+          <p style="font-size:14px; color:var(--muted);">
+            "Measuring organic attribution requires checking metrics listed in our analysis of <a href="#" style="color:var(--teal); font-weight:700;">content marketing ROI</a>."
+          </p>
+          <div style="font-size:12px; color:var(--teal); margin-top:10px; font-weight:600;">Target URL: https://yoursite.com/content-marketing-roi</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DARK STATS BANNER -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat"><strong>₹300–₹1000</strong><span>flat payout per approved link</span></div>
+      <div class="stat"><strong>24–48 hrs</strong><span>fast UPI / bank transfer</span></div>
+      <div class="stat"><strong>∞</strong><span>no limit on monthly mentions</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="container">
+  <div>© 2026 Reference Rewards</div>
+  <div>Relevant references only · Subject to approval</div>
+</footer>
+
+<script>
+/* Dynamic Tab Switcher */
+function switchTab(tabId, btnElement) {
+  const contents = document.querySelectorAll('.dynamic-tab-content');
+  contents.forEach(content => content.classList.remove('active'));
+
+  const buttons = document.querySelectorAll('.tab-btn');
+  buttons.forEach(btn => btn.classList.remove('active'));
+
+  document.getElementById(tabId).classList.add('active');
+  btnElement.classList.add('active');
+}
+
+/* Range Calculator Logic */
+const trafficTiers = [
+  { label: "Traffic 2,000 + DA 30 =", rate: 200 },
+  { label: "Traffic 18,000+ DA 30 =", rate: 500 },
+  { label: "Traffic 25,000+ DA 40 =", rate: 700 },
+  { label: "Traffic 50,000+ DA 40 =", rate: 1200 },
+  { label: "Traffic 100,000+ DA 40 =", rate: 2000 }
+];
+
+let currentIncome = 0;
+let debounceTimer;
+
+function updateSliderBackground(slider) {
+  const percentage = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
+  slider.style.background = `linear-gradient(to right, #00A896 ${percentage}%, #dce8e5 ${percentage}%)`;
+}
+
+function triggerCalculation() {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => {
+    calculateAndCelebrate();
+  }, 50);
+}
+
+function calculateAndCelebrate() {
+  const tierSlider = document.getElementById('cardTier');
+  const blogsSlider = document.getElementById('cardBlogs');
+
+  const tierIndex = parseInt(tierSlider.value) || 0;
+  const blogs = parseInt(blogsSlider.value) || 1;
+
+  const currentTier = trafficTiers[tierIndex];
+  const targetTotal = currentTier.rate * Math.max(1, blogs);
+
+  updateSliderBackground(tierSlider);
+  updateSliderBackground(blogsSlider);
+
+  document.getElementById('trafficBadge').innerText = `${currentTier.label} ₹${currentTier.rate}`;
+  document.getElementById('blogsBadge').innerText = `${blogs} Blog${blogs > 1 ? 's' : ''}`;
+
+  animateValue('cardIncomeVal', currentIncome, targetTotal, 300);
+  currentIncome = targetTotal;
+}
+
+function animateValue(id, start, end, duration) {
+  const obj = document.getElementById(id);
+  let startTimestamp = null;
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    const value = Math.floor(progress * (end - start) + start);
+    obj.innerHTML = '₹' + value.toLocaleString('en-IN');
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    }
+  };
+  window.requestAnimationFrame(step);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  calculateAndCelebrate();
+});
+</script>
 
 </body>
 </html>
