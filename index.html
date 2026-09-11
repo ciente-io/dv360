@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Earn ₹300–₹1000 for Every Approved Reference</title>
 <meta name="description" content="Content writers can earn ₹300–₹1000 every time an approved reference to our website is added to a published article. Fast UPI or bank transfer.">
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
 
@@ -19,16 +19,37 @@
   --white:#fff;
   --shadow:0 24px 70px rgba(16,24,32,.10);
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;color:var(--ink);background:var(--cream);
-  font-family:"DM Sans",sans-serif;line-height:1.55;
-}
-a{text-decoration:none;color:inherit}
-.container{width:min(1160px,92%);margin:auto}
 
-/* Navigation Styles */
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  color:var(--ink);
+  background:var(--cream);
+  font-family:"DM Sans",sans-serif;
+  line-height:1.55;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.container{
+  width:min(1160px,92%);
+  margin:auto;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
 .nav{
   padding:15px 0;
   display:flex;
@@ -38,670 +59,1831 @@ a{text-decoration:none;color:inherit}
   flex-wrap:wrap;
   gap:15px;
 }
-.logo{font-family:Manrope;font-size:22px;font-weight:800;letter-spacing:-.6px}
-.logo span{color:var(--teal)}
 
-/* UNIFIED TURQUOISE BUTTONS WITH ZOOM-IN ANIMATION */
-.nav-buttons {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
+.logo{
+  font-family:Manrope;
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:-.6px;
 }
 
-.nav-btn, .btn, .tab-btn {
-  position: relative;
-  background: var(--teal);
-  color: var(--white) !important;
-  border: 1px solid var(--teal);
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 14px;
-  padding: 10px 20px;
-  white-space: nowrap;
-  overflow: hidden;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: 0 4px 12px rgba(0, 168, 150, 0.25);
-  
-  /* Zoom-in Entrance Animation */
-  opacity: 0;
-  transform: scale(0.3);
-  animation: zoomIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+.logo span{
+  color:var(--teal);
 }
 
-/* Staggered entrance delay for navbar buttons */
-.nav-btn:nth-child(1) { animation-delay: 0.05s; }
-.nav-btn:nth-child(2) { animation-delay: 0.15s; }
-.nav-btn:nth-child(3) { animation-delay: 0.25s; }
-.nav-btn:nth-child(4) { animation-delay: 0.35s; }
-
-/* Interactive Hover State with Zoom-In effect */
-.nav-btn:hover, .btn:hover, .tab-btn:hover {
-  background: var(--teal-hover);
-  border-color: var(--teal-hover);
-  transform: scale(1.08) !important;
-  box-shadow: 0 8px 22px rgba(0, 168, 150, 0.4);
+.nav-buttons{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
-.tab-btn.active {
-  background: var(--ink);
-  border-color: var(--ink);
-  box-shadow: 0 6px 18px rgba(16, 24, 32, 0.3);
+.nav-btn,
+.btn,
+.tab-btn{
+  position:relative;
+  background:var(--teal);
+  color:var(--white) !important;
+  border:1px solid var(--teal);
+  border-radius:999px;
+  font-weight:700;
+  font-size:14px;
+  padding:10px 20px;
+  white-space:nowrap;
+  overflow:hidden;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  box-shadow:0 4px 12px rgba(0,168,150,.25);
+
+  opacity:0;
+  transform:scale(.3);
+
+  animation:zoomIn .5s cubic-bezier(.34,1.56,.64,1) forwards;
+
+  transition:
+    transform .25s cubic-bezier(.34,1.56,.64,1),
+    background-color .2s ease,
+    box-shadow .2s ease;
 }
 
-.nav-btn:active, .btn:active, .tab-btn:active {
-  transform: scale(0.96) !important;
+.nav-btn:nth-child(1){
+  animation-delay:.05s;
 }
 
-/* Keyframe Animations */
-@keyframes zoomIn {
-  0% { opacity: 0; transform: scale(0.3); }
-  100% { opacity: 1; transform: scale(1); }
+.nav-btn:nth-child(2){
+  animation-delay:.15s;
 }
 
-.hero{padding:40px 0 50px;position:relative;overflow:hidden}
+.nav-btn:nth-child(3){
+  animation-delay:.25s;
+}
+
+.nav-btn:nth-child(4){
+  animation-delay:.35s;
+}
+
+.nav-btn:hover,
+.btn:hover,
+.tab-btn:hover{
+  background:var(--teal-hover);
+  border-color:var(--teal-hover);
+  transform:scale(1.08) !important;
+  box-shadow:0 8px 22px rgba(0,168,150,.4);
+}
+
+.tab-btn.active{
+  background:var(--ink);
+  border-color:var(--ink);
+  box-shadow:0 6px 18px rgba(16,24,32,.3);
+}
+
+.nav-btn:active,
+.btn:active,
+.tab-btn:active{
+  transform:scale(.96) !important;
+}
+
+@keyframes zoomIn{
+  0%{
+    opacity:0;
+    transform:scale(.3);
+  }
+
+  100%{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  padding:40px 0 50px;
+  position:relative;
+  overflow:hidden;
+}
+
 .hero:before{
-  content:"";position:absolute;width:430px;height:430px;border-radius:50%;
-  background:rgba(0,168,150,.10);right:-160px;top:-130px;filter:blur(3px)
+  content:"";
+  position:absolute;
+  width:430px;
+  height:430px;
+  border-radius:50%;
+  background:rgba(0,168,150,.10);
+  right:-160px;
+  top:-130px;
+  filter:blur(3px);
 }
-.hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:50px;align-items:center}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:50px;
+  align-items:center;
+}
+
 .badge{
-  display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:999px;
-  background:#e5f7f5;color:var(--teal);font-weight:700;font-size:13px
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 13px;
+  border-radius:999px;
+  background:#e5f7f5;
+  color:var(--teal);
+  font-weight:700;
+  font-size:13px;
 }
-.badge i{width:7px;height:7px;border-radius:50%;background:var(--teal);display:block}
+
+.badge i{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--teal);
+  display:block;
+}
+
 h1{
-  font-family:Manrope;font-size:clamp(40px,5.5vw,68px);line-height:1.05;
-  letter-spacing:-3px;margin:20px 0 10px;max-width:760px
-}
-h1 em{font-style:normal;color:var(--teal)}
-
-h2.hero-subhead {
-  font-family: Manrope, sans-serif;
-  font-size: clamp(20px, 2.5vw, 26px);
-  font-weight: 700;
-  color: var(--teal);
-  letter-spacing: -0.5px;
-  margin: 0 0 18px 0;
-  line-height: 1.25;
+  font-family:Manrope;
+  font-size:clamp(40px,5.5vw,68px);
+  line-height:1.05;
+  letter-spacing:-3px;
+  margin:20px 0 10px;
+  max-width:760px;
 }
 
-.hero-copy{font-size:17px;color:var(--muted);max-width:660px;line-height:1.6}
-.hero-actions{display:flex;gap:12px;margin:25px 0 18px;flex-wrap:wrap}
-
-.btn-large {
-  padding: 14px 28px;
-  font-size: 15px;
+h1 em{
+  font-style:normal;
+  color:var(--teal);
 }
 
-.micro{font-size:13px;color:#718086}
-
-/* SECOND SECTION WITH 4 BUTTONS */
-.interactive-nav-section {
-  padding: 24px 0 40px;
-  background: #ffffff;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  margin-bottom: 40px;
+h2.hero-subhead{
+  font-family:Manrope,sans-serif;
+  font-size:clamp(20px,2.5vw,26px);
+  font-weight:700;
+  color:var(--teal);
+  letter-spacing:-.5px;
+  margin:0 0 18px 0;
+  line-height:1.25;
 }
 
-.button-bar {
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  flex-wrap: wrap;
+.hero-copy{
+  font-size:17px;
+  color:var(--muted);
+  max-width:660px;
+  line-height:1.6;
 }
 
-.dynamic-tab-content {
-  margin-top: 30px;
-  display: none;
-  animation: fadeIn 0.4s ease-out;
+.hero-actions{
+  display:flex;
+  gap:12px;
+  margin:25px 0 18px;
+  flex-wrap:wrap;
 }
 
-.dynamic-tab-content.active {
-  display: block;
+.btn-large{
+  padding:14px 28px;
+  font-size:15px;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.micro{
+  font-size:13px;
+  color:#718086;
+  margin-top:5px;
 }
 
-/* Card & Grid Styling for Dynamic Content */
-.eligibility-card {
-  background: var(--cream);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 30px;
-  max-width: 800px;
-  margin: 0 auto;
+/* =========================
+   INTERACTIVE NAV SECTION
+========================= */
+
+.interactive-nav-section{
+  padding:24px 0 40px;
+  background:#ffffff;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  margin-bottom:40px;
 }
 
-.eligibility-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.button-bar{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  flex-wrap:wrap;
 }
 
-.eligibility-list li {
-  padding: 16px 0;
-  border-bottom: 1px solid var(--line);
-  font-size: 16px;
-  font-weight: 600;
+.dynamic-tab-content{
+  margin-top:30px;
+  display:none;
+  animation:fadeIn .4s ease-out;
 }
 
-.eligibility-list li:last-child { border: 0; }
-
-.eligibility-list a {
-  color: var(--teal);
-  text-decoration: underline;
-  font-size: 14px;
-  display: inline-block;
-  margin-top: 4px;
+.dynamic-tab-content.active{
+  display:block;
 }
 
-.proofs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
-.payment-proof-card {
-  background: white;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+/* =========================
+   ELIGIBILITY
+========================= */
+
+.eligibility-card{
+  background:var(--cream);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:30px;
+  max-width:800px;
+  margin:0 auto;
 }
 
-.payment-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
+.eligibility-list{
+  list-style:none;
+  padding:0;
+  margin:0;
 }
 
-.payment-name { font-weight: 800; font-family: Manrope; font-size: 16px; }
-.payment-amount { color: #059669; font-weight: 800; font-size: 18px; }
-.payment-status { background: #d1fae5; color: #065f46; font-size: 11px; padding: 4px 10px; border-radius: 999px; font-weight: 700; }
-
-.examples-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
+.eligibility-list li{
+  padding:16px 0;
+  border-bottom:1px solid var(--line);
+  font-size:16px;
+  font-weight:600;
 }
 
-.example-card {
-  background: white;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 24px;
+.eligibility-list li:last-child{
+  border:0;
 }
 
-.example-anchor {
-  background: #e5f7f5;
-  color: var(--teal);
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 13px;
-  display: inline-block;
-  margin-bottom: 12px;
+.eligibility-list a{
+  color:var(--teal);
+  text-decoration:underline;
+  font-size:14px;
+  display:inline-block;
+  margin-top:4px;
 }
 
-/* Calculator & Hero Card */
+/* =========================
+   PAYMENT PROOFS
+========================= */
+
+.proofs-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+}
+
+.payment-proof-card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 4px 20px rgba(0,0,0,.05);
+}
+
+.payment-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+  gap:10px;
+}
+
+.payment-name{
+  font-weight:800;
+  font-family:Manrope;
+  font-size:16px;
+}
+
+.payment-amount{
+  color:#059669;
+  font-weight:800;
+  font-size:18px;
+}
+
+.payment-status{
+  background:#d1fae5;
+  color:#065f46;
+  font-size:11px;
+  padding:4px 10px;
+  border-radius:999px;
+  font-weight:700;
+}
+
+/* =========================
+   EXAMPLES
+========================= */
+
+.examples-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:20px;
+}
+
+.example-card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:24px;
+}
+
+.example-anchor{
+  background:#e5f7f5;
+  color:var(--teal);
+  padding:6px 12px;
+  border-radius:8px;
+  font-weight:700;
+  font-size:13px;
+  display:inline-block;
+  margin-bottom:12px;
+}
+
+/* =========================
+   EARN CARD
+========================= */
+
 .earn-card{
-  background:var(--white);border:1px solid var(--line);border-radius:28px;padding:30px;
-  box-shadow:var(--shadow);position:relative
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:30px;
+  box-shadow:var(--shadow);
+  position:relative;
 }
+
 .earn-card:after{
-  content:"₹";position:absolute;right:20px;top:7px;font-family:Manrope;font-size:150px;
-  font-weight:800;color:#eff8f6;z-index:0
-}
-.card-inner{position:relative;z-index:1}
-.card-top{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted)}
-.amount{font-family:Manrope;font-size:52px;letter-spacing:-3px;font-weight:800;margin:5px 0}
-.amount small{font-family:"DM Sans";font-size:16px;letter-spacing:0;color:var(--muted);font-weight:600}
-
-.card-calc {
-  background: #f4faf8;
-  border-radius: 16px;
-  padding: 20px;
-  margin-top: 20px;
-  border: 1px solid var(--line);
-}
-.card-calc-title {
-  font-size: 14px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--ink);
-  margin-bottom: 4px;
-}
-.card-calc-subtitle {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.35;
-  margin-bottom: 16px;
-}
-.calc-field { margin-bottom: 18px; }
-.calc-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.calc-field label { font-size: 12px; font-weight: 700; color: var(--ink); }
-.slider-val-badge {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--teal);
-  background: #e5f7f5;
-  padding: 2px 8px;
-  border-radius: 6px;
-  border: 1px solid rgba(0,168,150,0.2);
+  content:"₹";
+  position:absolute;
+  right:20px;
+  top:7px;
+  font-family:Manrope;
+  font-size:150px;
+  font-weight:800;
+  color:#eff8f6;
+  z-index:0;
 }
 
-input[type="range"] {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 6px;
-  border-radius: 4px;
-  background: var(--line);
-  outline: none;
-  cursor: pointer;
-}
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--teal);
-  border: 2px solid white;
-  box-shadow: 0 2px 6px rgba(0,168,150,0.4);
-  cursor: pointer;
+.card-inner{
+  position:relative;
+  z-index:1;
 }
 
-.calc-output-box {
-  background: #f1fcf9;
-  border: 1.5px solid var(--teal);
-  border-radius: 16px;
-  padding: 14px 18px;
-  margin-top: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.card-top{
+  font-size:13px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  color:var(--muted);
 }
 
-.calc-output-label { font-size: 13px; font-weight: 700; color: #101820; }
-.calc-output-badge { background: #e5f7f5; color: var(--teal); font-size: 11px; padding: 3px 9px; border-radius: 999px; font-weight: 700; }
-.calc-output-val { font-family: Manrope, sans-serif; font-size: 26px; font-weight: 800; color: var(--teal); }
+.amount{
+  font-family:Manrope;
+  font-size:52px;
+  letter-spacing:-3px;
+  font-weight:800;
+  margin:5px 0;
+}
 
-.stats{background:var(--ink);color:white;padding:32px 0}
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.stat{text-align:center;padding:12px;border-right:1px solid rgba(255,255,255,.12)}
-.stat:last-child{border:0}.stat strong{display:block;font-family:Manrope;font-size:25px}.stat span{font-size:13px;color:#bdc9ca}
+.amount small{
+  font-family:"DM Sans";
+  font-size:16px;
+  letter-spacing:0;
+  color:var(--muted);
+  font-weight:600;
+}
 
-.section{padding:60px 0}
-.section-head{max-width:690px;margin-bottom:42px}
-.kicker{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.8px;color:var(--teal)}
-h2{font-family:Manrope;font-size:clamp(34px,4vw,52px);line-height:1.08;letter-spacing:-2.2px;margin:9px 0 14px}
-.section-head p{color:var(--muted);font-size:17px}
+/* =========================
+   CALCULATOR
+========================= */
 
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.step{background:white;border:1px solid var(--line);border-radius:20px;padding:25px;min-height:220px;position:relative}
-.step-num{font-family:Manrope;font-size:13px;font-weight:800;color:var(--teal)}
-.step h3{font-family:Manrope;font-size:21px;margin:42px 0 8px}
-.step p{color:var(--muted);font-size:14px;margin:0}
-.arrow{position:absolute;right:18px;top:22px;color:#b4c4c1;font-size:20px}
+.card-calc{
+  background:#f4faf8;
+  border-radius:16px;
+  padding:20px;
+  margin-top:20px;
+  border:1px solid var(--line);
+}
 
-footer{padding:30px 0 45px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:20px}
+.card-calc-title{
+  font-size:14px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  color:var(--ink);
+  margin-bottom:4px;
+}
+
+.card-calc-subtitle{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.35;
+  margin-bottom:16px;
+}
+
+.calc-field{
+  margin-bottom:18px;
+}
+
+.calc-header-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:8px;
+  gap:10px;
+}
+
+.calc-field label{
+  font-size:12px;
+  font-weight:700;
+  color:var(--ink);
+}
+
+.slider-val-badge{
+  font-size:11px;
+  font-weight:700;
+  color:var(--teal);
+  background:#e5f7f5;
+  padding:2px 8px;
+  border-radius:6px;
+  border:1px solid rgba(0,168,150,.2);
+  text-align:right;
+}
+
+input[type="range"]{
+  -webkit-appearance:none;
+  width:100%;
+  height:6px;
+  border-radius:4px;
+  background:var(--line);
+  outline:none;
+  cursor:pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  appearance:none;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:var(--teal);
+  border:2px solid white;
+  box-shadow:0 2px 6px rgba(0,168,150,.4);
+  cursor:pointer;
+}
+
+input[type="range"]::-moz-range-thumb{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:var(--teal);
+  border:2px solid white;
+  box-shadow:0 2px 6px rgba(0,168,150,.4);
+  cursor:pointer;
+}
+
+.calc-output-box{
+  background:#f1fcf9;
+  border:1.5px solid var(--teal);
+  border-radius:16px;
+  padding:14px 18px;
+  margin-top:16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.calc-output-left{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.calc-output-label{
+  font-size:13px;
+  font-weight:700;
+  color:#101820;
+}
+
+.calc-output-badge{
+  background:#e5f7f5;
+  color:var(--teal);
+  font-size:11px;
+  padding:3px 9px;
+  border-radius:999px;
+  font-weight:700;
+  width:max-content;
+}
+
+.calc-output-val{
+  font-family:Manrope,sans-serif;
+  font-size:26px;
+  font-weight:800;
+  color:var(--teal);
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+  background:var(--ink);
+  color:white;
+  padding:32px 0;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.stat{
+  text-align:center;
+  padding:12px;
+  border-right:1px solid rgba(255,255,255,.12);
+}
+
+.stat:last-child{
+  border:0;
+}
+
+.stat strong{
+  display:block;
+  font-family:Manrope;
+  font-size:25px;
+}
+
+.stat span{
+  font-size:13px;
+  color:#bdc9ca;
+}
+
+/* =========================
+   GENERAL SECTIONS
+========================= */
+
+.section{
+  padding:60px 0;
+}
+
+.section-head{
+  max-width:690px;
+  margin-bottom:42px;
+}
+
+.kicker{
+  font-size:12px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:1.8px;
+  color:var(--teal);
+}
+
+h2{
+  font-family:Manrope;
+  font-size:clamp(34px,4vw,52px);
+  line-height:1.08;
+  letter-spacing:-2.2px;
+  margin:9px 0 14px;
+}
+
+.section-head p{
+  color:var(--muted);
+  font-size:17px;
+}
+
+/* =========================
+   STEPS
+========================= */
+
+.steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.step{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:25px;
+  min-height:220px;
+  position:relative;
+}
+
+.step-num{
+  font-family:Manrope;
+  font-size:13px;
+  font-weight:800;
+  color:var(--teal);
+}
+
+.step h3{
+  font-family:Manrope;
+  font-size:21px;
+  margin:42px 0 8px;
+}
+
+.step p{
+  color:var(--muted);
+  font-size:14px;
+  margin:0;
+}
+
+.arrow{
+  position:absolute;
+  right:18px;
+  top:22px;
+  color:#b4c4c1;
+  font-size:20px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  padding:30px 0 45px;
+  border-top:1px solid var(--line);
+  font-size:13px;
+  color:var(--muted);
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(max-width:850px){
- .hero-grid{grid-template-columns:1fr}
- .steps,.proofs-grid,.examples-grid{grid-template-columns:1fr}
- .stats-grid{grid-template-columns:1fr}
- .stat{border-right:0;border-bottom:1px solid rgba(255,255,255,.12)}
+
+  .hero-grid{
+    grid-template-columns:1fr;
+  }
+
+  .steps,
+  .proofs-grid,
+  .examples-grid{
+    grid-template-columns:1fr;
+  }
+
+  .stats-grid{
+    grid-template-columns:1fr;
+  }
+
+  .stat{
+    border-right:0;
+    border-bottom:1px solid rgba(255,255,255,.12);
+  }
+
+  .stat:last-child{
+    border-bottom:0;
+  }
+
+  .nav{
+    justify-content:center;
+  }
+
+  .logo{
+    width:100%;
+    text-align:center;
+  }
+
+  .nav-buttons{
+    justify-content:center;
+    width:100%;
+  }
+}
+
+@media(max-width:600px){
+
+  .nav-buttons{
+    flex-direction:column;
+    width:100%;
+  }
+
+  .nav-btn{
+    width:100%;
+  }
+
+  h1{
+    letter-spacing:-2px;
+  }
+
+  .amount{
+    font-size:40px;
+  }
+
+  .calc-header-row{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .slider-val-badge{
+    text-align:left;
+  }
+
+  .calc-output-box{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .calc-output-val{
+    font-size:30px;
+  }
+
+  footer{
+    flex-direction:column;
+    text-align:center;
+  }
 }
 </style>
 </head>
+
 <body>
 
+<!-- =========================
+     HEADER / NAVIGATION
+========================= -->
+
 <header class="container nav">
-  <div class="logo">Reference<span>Rewards</span></div>
+
+  <div class="logo">
+    Reference<span>Rewards</span>
+  </div>
+
   <nav class="nav-buttons">
-    <a class="nav-btn" href="mailto: jamesmac2550@gmail.com">Email Us</a>
-    <a class="nav-btn" href="https://www.linkedin.com/in/james-george-8745a41b9/" target="_blank" rel="noopener">Connect me with linkedin</a>
-    <a class="nav-btn" href="https://www.linkedin.com/groups/40852007/" target="_blank" rel="noopener">Join Linkedin Group</a>
-    <a class="nav-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdFknNKvZCIfRBDii25yzg1wmUUlJrhusozULOBU3BJpmw_9Q/viewform?usp=publish-editor">Submit your request now</a>
+
+    <!-- EMAIL -->
+    <a
+      class="nav-btn"
+      href="mailto:jamesmac2550@gmail.com">
+      Email Us
+    </a>
+
+    <!-- LINKEDIN PROFILE -->
+    <a
+      class="nav-btn"
+      href="https://www.linkedin.com/in/james-george-8745a41b9/"
+      target="_blank"
+      rel="noopener noreferrer">
+      Connect me with linkedin
+    </a>
+
+    <!-- LINKEDIN GROUP -->
+    <a
+      class="nav-btn"
+      href="https://www.linkedin.com/groups/40852007/"
+      target="_blank"
+      rel="noopener noreferrer">
+      Join Linkedin Group
+    </a>
+
+    <!-- GOOGLE FORM -->
+    <a
+      class="nav-btn"
+      href="https://docs.google.com/forms/d/e/1FAIpQLSdFknNKvZCIfRBDii25yzg1wmUUlJrhusozULOBU3BJpmw_9Q/viewform?usp=publish-editor"
+      target="_blank"
+      rel="noopener noreferrer">
+      Submit your request now
+    </a>
+
   </nav>
+
 </header>
 
 <main>
+
+<!-- =========================
+     HERO
+========================= -->
+
 <section class="hero">
+
   <div class="container hero-grid">
+
     <div>
-      <span class="badge"><i></i> For content writers & contributors</span>
-      <h1>Writers, Get paid when you <em>cite us</em> in your blog.</h1>
-      <h2 class="hero-subhead">You don't need a separate writing assignment for us.</h2>
-      
+
+      <span class="badge">
+        <i></i>
+        For content writers & contributors
+      </span>
+
+      <h1>
+        Writers, Get paid when you <em>cite us</em> in your blog.
+      </h1>
+
+      <h2 class="hero-subhead">
+        You don't need a separate writing assignment for us.
+      </h2>
+
       <p class="hero-copy">
-        While creating articles for your company or existing clients, simply reference our website as a source wherever relevant. Submit your published article, and earn <strong>₹300–₹1000</strong> for every approved mention. We dont reveal your identity to anyone.
+        While creating articles for your company or existing clients,
+        simply reference our website as a source wherever relevant.
+        Submit your published article, and earn
+        <strong>₹300–₹1000</strong> for every approved mention.
+        We don't reveal your identity to anyone.
       </p>
-      
+
       <div class="hero-actions">
-        <a class="btn btn-large" href="#submit">Get to know Your first citation domain now →</a>
-        
+
+        <!-- FIRST CITATION DOMAIN / LINKEDIN -->
+        <a
+          class="btn btn-large"
+          href="https://www.linkedin.com/in/james-george-8745a41b9/"
+          target="_blank"
+          rel="noopener noreferrer">
+          Get to know Your first citation domain now →
+        </a>
+
       </div>
-      
-      <div class="micro"> - No spam. Try first request > Exit if you dont like > you loose nothing </div>
-      <div class="micro"> - Try first request > if you get payment in 1 hour > stay connected and earn more </div>
+
+      <div class="micro">
+        - No spam. Try first request &gt; Exit if you don't like &gt; you lose nothing
+      </div>
+
+      <div class="micro">
+        - Try first request &gt; if you get payment in 1 hour &gt; stay connected and earn more
+      </div>
+
     </div>
 
+    <!-- =========================
+         EARN CARD / CALCULATOR
+    ========================= -->
+
     <div class="earn-card">
+
       <div class="card-inner">
-        <div class="card-top">Your potential payout</div>
-        <div class="amount">₹300–₹1000 <small>/ per approved link</small></div>
+
+        <div class="card-top">
+          Your potential payout
+        </div>
+
+        <div class="amount">
+          ₹300–₹1000
+          <small>/ per approved link</small>
+        </div>
 
         <div class="card-calc">
-          <div class="card-calc-title">Monthly Income Calculator</div>
-          <div class="card-calc-subtitle">Traffic + monthly content you publish for your company = total income</div>
-          
-          <div class="calc-field">
-            <div class="calc-header-row">
-              <label for="cardTier">Select your website traffic</label>
-              <span class="slider-val-badge" id="trafficBadge">Traffic 2,000 + DA 30 = ₹200</span>
-            </div>
-            <input type="range" id="cardTier" min="0" max="4" step="1" value="1" oninput="triggerCalculation()">
+
+          <div class="card-calc-title">
+            Monthly Income Calculator
           </div>
 
-          <div class="calc-field">
-            <div class="calc-header-row">
-              <label for="cardBlogs">How many blogs you publish in your company</label>
-              <span class="slider-val-badge" id="blogsBadge">10 Blogs</span>
-            </div>
-            <input type="range" id="cardBlogs" min="1" max="100" step="1" value="10" oninput="triggerCalculation()">
+          <div class="card-calc-subtitle">
+            Traffic + monthly content you publish for your company = total income
           </div>
-          
-          <div class="calc-output-box" id="calcOutputBox">
-            <div class="calc-output-left">
-              <span class="calc-output-label">Your expected monthly income</span>
-              <span class="calc-output-badge">✨ Calculated</span>
+
+          <!-- TRAFFIC SLIDER -->
+          <div class="calc-field">
+
+            <div class="calc-header-row">
+
+              <label for="cardTier">
+                Select your website traffic
+              </label>
+
+              <span
+                class="slider-val-badge"
+                id="trafficBadge">
+                Traffic 2,000 + DA 30 = ₹200
+              </span>
+
             </div>
-            <span class="calc-output-val" id="cardIncomeVal">₹5,000</span>
+
+            <input
+              type="range"
+              id="cardTier"
+              min="0"
+              max="4"
+              step="1"
+              value="1"
+              oninput="triggerCalculation()">
+
+          </div>
+
+          <!-- BLOG SLIDER -->
+          <div class="calc-field">
+
+            <div class="calc-header-row">
+
+              <label for="cardBlogs">
+                How many blogs you publish in your company
+              </label>
+
+              <span
+                class="slider-val-badge"
+                id="blogsBadge">
+                10 Blogs
+              </span>
+
+            </div>
+
+            <input
+              type="range"
+              id="cardBlogs"
+              min="1"
+              max="100"
+              step="1"
+              value="10"
+              oninput="triggerCalculation()">
+
+          </div>
+
+          <!-- CALCULATOR OUTPUT -->
+          <div
+            class="calc-output-box"
+            id="calcOutputBox">
+
+            <div class="calc-output-left">
+
+              <span class="calc-output-label">
+                Your expected monthly income
+              </span>
+
+              <span class="calc-output-badge">
+                ✨ Calculated
+              </span>
+
+            </div>
+
+            <span
+              class="calc-output-val"
+              id="cardIncomeVal">
+              ₹5,000
+            </span>
+
           </div>
 
         </div>
+
       </div>
+
     </div>
+
   </div>
+
 </section>
 
-<!-- SECOND SECTION: 4 INTERACTIVE BUTTONS WITH DYNAMIC TAB CONTENT -->
-<section class="interactive-nav-section" id="interactive-section">
+<!-- =========================
+     INTERACTIVE TABS
+========================= -->
+
+<section
+  class="interactive-nav-section"
+  id="interactive-section">
+
   <div class="container">
+
     <div class="button-bar">
-      <button class="tab-btn active" onclick="switchTab('tab-steps', this)">4 Steps Pay</button>
-      <button class="tab-btn" onclick="switchTab('tab-eligibility', this)">Know your website eligibility</button>
-      <button class="tab-btn" onclick="switchTab('tab-proofs', this)">Proofs</button>
-      <button class="tab-btn" onclick="switchTab('tab-examples', this)">Examples</button>
+
+      <button
+        class="tab-btn active"
+        onclick="switchTab('tab-steps', this)">
+        4 Steps Pay
+      </button>
+
+      <button
+        class="tab-btn"
+        onclick="switchTab('tab-eligibility', this)">
+        Know your website eligibility
+      </button>
+
+      <button
+        class="tab-btn"
+        onclick="switchTab('tab-proofs', this)">
+        Proofs
+      </button>
+
+      <button
+        class="tab-btn"
+        onclick="switchTab('tab-examples', this)">
+        Examples
+      </button>
+
     </div>
 
-    <!-- CONTENT 1: 4 STEPS PAY -->
-    <div id="tab-steps" class="dynamic-tab-content active">
-      <div class="section-head" style="margin: 30px auto 30px; text-align:center;">
-        <div class="kicker">The process</div>
-        <h2>Four steps. That's it.</h2>
-        <p>Keep doing what you already do as a content writer. When a relevant source fits naturally, reference it and submit the published URL.</p>
+    <!-- =========================
+         TAB 1 - FOUR STEPS
+    ========================= -->
+
+    <div
+      id="tab-steps"
+      class="dynamic-tab-content active">
+
+      <div
+        class="section-head"
+        style="margin:30px auto 30px;text-align:center;">
+
+        <div class="kicker">
+          The process
+        </div>
+
+        <h2>
+          Four steps. That's it.
+        </h2>
+
+        <p>
+          Keep doing what you already do as a content writer.
+          When a relevant source fits naturally, reference it
+          and submit the published URL.
+        </p>
+
       </div>
 
       <div class="steps">
+
         <article class="step">
-          <div class="step-num">01</div><div class="arrow">→</div>
-          <h3>Write your article</h3>
-          <p>Write for whichever company, publication or client you are working with.</p>
+
+          <div class="step-num">
+            01
+          </div>
+
+          <div class="arrow">
+            →
+          </div>
+
+          <h3>
+            Write your article
+          </h3>
+
+          <p>
+            Write for whichever company, publication or client
+            you are working with.
+          </p>
+
         </article>
+
         <article class="step">
-          <div class="step-num">02</div><div class="arrow">→</div>
-          <h3>Add a reference</h3>
-          <p>When genuinely relevant, reference a useful blog or resource from our website.</p>
+
+          <div class="step-num">
+            02
+          </div>
+
+          <div class="arrow">
+            →
+          </div>
+
+          <h3>
+            Add a reference
+          </h3>
+
+          <p>
+            When genuinely relevant, reference a useful blog
+            or resource from our website.
+          </p>
+
         </article>
+
         <article class="step">
-          <div class="step-num">03</div><div class="arrow">→</div>
-          <h3>Send the live link</h3>
-          <p>Submit the URL of your published article so the reference can be reviewed.</p>
+
+          <div class="step-num">
+            03
+          </div>
+
+          <div class="arrow">
+            →
+          </div>
+
+          <h3>
+            Send the live link
+          </h3>
+
+          <p>
+            Submit the URL of your published article so the
+            reference can be reviewed.
+          </p>
+
         </article>
+
         <article class="step">
-          <div class="step-num">04</div>
-          <h3>Get paid</h3>
-          <p>Once approved, receive the applicable payout through UPI or bank transfer.</p>
+
+          <div class="step-num">
+            04
+          </div>
+
+          <h3>
+            Get paid
+          </h3>
+
+          <p>
+            Once approved, receive the applicable payout
+            through UPI or bank transfer.
+          </p>
+
         </article>
+
       </div>
+
     </div>
 
-    <!-- CONTENT 2: ELIGIBILITY -->
-    <div id="tab-eligibility" class="dynamic-tab-content">
+    <!-- =========================
+         TAB 2 - ELIGIBILITY
+    ========================= -->
+
+    <div
+      id="tab-eligibility"
+      class="dynamic-tab-content">
+
       <div class="eligibility-card">
-        <div class="kicker" style="text-align:center; margin-bottom:10px;">Requirements</div>
-        <h2 style="text-align:center; font-size:32px; margin-bottom:20px;">Website Eligibility Criteria</h2>
+
+        <div
+          class="kicker"
+          style="text-align:center;margin-bottom:10px;">
+          Requirements
+        </div>
+
+        <h2
+          style="text-align:center;font-size:32px;margin-bottom:20px;">
+          Website Eligibility Criteria
+        </h2>
+
         <ul class="eligibility-list">
+
           <li>
+
             • <strong>Website Authority must be above 20+</strong>
+
+            <br><br>
+
+            <span
+              style="font-weight:400;color:var(--muted);font-size:14px;">
+              Domain Authority must be above 20 with less than
+              5% spam score.
+            </span>
+
             <br>
-            <br>
-            <span style="font-weight:400; color:var(--muted); font-size:14px;">(Domain Authority must be above 20 with less than 5% spam score.)
-          
-            <a href="https://ahrefs.com/website-authority-checker" target="_blank" rel="noopener">Check authority on Ahrefs →</a>
+
+            <a
+              href="https://ahrefs.com/website-authority-checker"
+              target="_blank"
+              rel="noopener noreferrer">
+              Check authority on Ahrefs →
+            </a>
+
           </li>
+
           <li>
+
             • <strong>Organic Traffic must be above 2000+</strong>
+
             <br>
-            <a href="https://ahrefs.com/traffic-checker" target="_blank" rel="noopener">Check traffic here on Ahrefs →</a>
+
+            <a
+              href="https://ahrefs.com/traffic-checker"
+              target="_blank"
+              rel="noopener noreferrer">
+              Check traffic here on Ahrefs →
+            </a>
+
           </li>
+
           <li>
+
             • <strong>Website Authenticity</strong>
+
             <br>
-            <span style="font-weight:400; color:var(--muted); font-size:14px;">(Website must drive organic traffic, organic traffic must be from difference blogs and not only from homepage or service page, Traffic driving keywords must be authentic and not just random queries
-          
+
+            <span
+              style="font-weight:400;color:var(--muted);font-size:14px;">
+              Website must drive organic traffic. Organic traffic
+              must be from different blogs and not only from the
+              homepage or service page. Traffic-driving keywords
+              must be authentic and not just random queries.
+            </span>
+
           </li>
+
         </ul>
+
       </div>
+
     </div>
 
-    <!-- CONTENT 3: PROOFS -->
-    <div id="tab-proofs" class="dynamic-tab-content">
-      <div class="section-head" style="margin: 20px auto 30px; text-align:center;">
-        <div class="kicker">Verified Transactions</div>
-        <h2>Recent Payment Proofs</h2>
+    <!-- =========================
+         TAB 3 - PAYMENT PROOFS
+    ========================= -->
+
+    <div
+      id="tab-proofs"
+      class="dynamic-tab-content">
+
+      <div
+        class="section-head"
+        style="margin:20px auto 30px;text-align:center;">
+
+        <div class="kicker">
+          Verified Transactions
+        </div>
+
+        <h2>
+          Recent Payment Proofs
+        </h2>
+
       </div>
+
       <div class="proofs-grid">
+
         <div class="payment-proof-card">
+
           <div class="payment-header">
-            <span class="payment-name">Aarav Sharma</span>
-            <span class="payment-status">✓ Paid UPI</span>
+
+            <span class="payment-name">
+              Aarav Sharma
+            </span>
+
+            <span class="payment-status">
+              ✓ Paid UPI
+            </span>
+
           </div>
-          <div class="payment-amount">₹1,000.00</div>
-          <p style="font-size:12px; color:var(--muted); margin:6px 0 0;">Ref ID: UPI/4092817291/Approved</p>
+
+          <div class="payment-amount">
+            ₹1,000.00
+          </div>
+
+          <p
+            style="font-size:12px;color:var(--muted);margin:6px 0 0;">
+            Ref ID: UPI/4092817291/Approved
+          </p>
+
         </div>
 
         <div class="payment-proof-card">
+
           <div class="payment-header">
-            <span class="payment-name">Priya Patel</span>
-            <span class="payment-status">✓ Paid UPI</span>
+
+            <span class="payment-name">
+              Priya Patel
+            </span>
+
+            <span class="payment-status">
+              ✓ Paid UPI
+            </span>
+
           </div>
-          <div class="payment-amount">₹700.00</div>
-          <p style="font-size:12px; color:var(--muted); margin:6px 0 0;">Ref ID: UPI/4092818932/Approved</p>
+
+          <div class="payment-amount">
+            ₹700.00
+          </div>
+
+          <p
+            style="font-size:12px;color:var(--muted);margin:6px 0 0;">
+            Ref ID: UPI/4092818932/Approved
+          </p>
+
         </div>
 
         <div class="payment-proof-card">
+
           <div class="payment-header">
-            <span class="payment-name">Rohan Mehta</span>
-            <span class="payment-status">✓ Bank Transfer</span>
+
+            <span class="payment-name">
+              Rohan Mehta
+            </span>
+
+            <span class="payment-status">
+              ✓ Bank Transfer
+            </span>
+
           </div>
-          <div class="payment-amount">₹1,000.00</div>
-          <p style="font-size:12px; color:var(--muted); margin:6px 0 0;">Ref ID: NEFT/IMPS/8821931/Paid</p>
+
+          <div class="payment-amount">
+            ₹1,000.00
+          </div>
+
+          <p
+            style="font-size:12px;color:var(--muted);margin:6px 0 0;">
+            Ref ID: NEFT/IMPS/8821931/Paid
+          </p>
+
         </div>
 
         <div class="payment-proof-card">
+
           <div class="payment-header">
-            <span class="payment-name">Ananya Iyer</span>
-            <span class="payment-status">✓ Paid UPI</span>
+
+            <span class="payment-name">
+              Ananya Iyer
+            </span>
+
+            <span class="payment-status">
+              ✓ Paid UPI
+            </span>
+
           </div>
-          <div class="payment-amount">₹500.00</div>
-          <p style="font-size:12px; color:var(--muted); margin:6px 0 0;">Ref ID: UPI/4092819830/Approved</p>
+
+          <div class="payment-amount">
+            ₹500.00
+          </div>
+
+          <p
+            style="font-size:12px;color:var(--muted);margin:6px 0 0;">
+            Ref ID: UPI/4092819830/Approved
+          </p>
+
         </div>
 
         <div class="payment-proof-card">
+
           <div class="payment-header">
-            <span class="payment-name">Vikram Verma</span>
-            <span class="payment-status">✓ Paid UPI</span>
+
+            <span class="payment-name">
+              Vikram Verma
+            </span>
+
+            <span class="payment-status">
+              ✓ Paid UPI
+            </span>
+
           </div>
-          <div class="payment-amount">₹850.00</div>
-          <p style="font-size:12px; color:var(--muted); margin:6px 0 0;">Ref ID: UPI/4092821049/Approved</p>
+
+          <div class="payment-amount">
+            ₹850.00
+          </div>
+
+          <p
+            style="font-size:12px;color:var(--muted);margin:6px 0 0;">
+            Ref ID: UPI/4092821049/Approved
+          </p>
+
         </div>
 
         <div class="payment-proof-card">
+
           <div class="payment-header">
-            <span class="payment-name">Sneha Kulkarni</span>
-            <span class="payment-status">✓ Bank Transfer</span>
+
+            <span class="payment-name">
+              Sneha Kulkarni
+            </span>
+
+            <span class="payment-status">
+              ✓ Bank Transfer
+            </span>
+
           </div>
-          <div class="payment-amount">₹600.00</div>
-          <p style="font-size:12px; color:var(--muted); margin:6px 0 0;">Ref ID: IMPS/90128472/Paid</p>
+
+          <div class="payment-amount">
+            ₹600.00
+          </div>
+
+          <p
+            style="font-size:12px;color:var(--muted);margin:6px 0 0;">
+            Ref ID: IMPS/90128472/Paid
+          </p>
+
         </div>
+
       </div>
+
     </div>
 
-    <!-- CONTENT 4: EXAMPLES -->
-    <div id="tab-examples" class="dynamic-tab-content">
-      <div class="section-head" style="margin: 20px auto 30px; text-align:center;">
-        <div class="kicker">Live Placement Samples</div>
-        <h2>Anchor Text & Hyperlink Examples</h2>
+    <!-- =========================
+         TAB 4 - EXAMPLES
+    ========================= -->
+
+    <div
+      id="tab-examples"
+      class="dynamic-tab-content">
+
+      <div
+        class="section-head"
+        style="margin:20px auto 30px;text-align:center;">
+
+        <div class="kicker">
+          Live Placement Samples
+        </div>
+
+        <h2>
+          Anchor Text & Hyperlink Examples
+        </h2>
+
       </div>
+
       <div class="examples-grid">
+
         <div class="example-card">
-          <div class="example-anchor">Anchor Text: B2B Lead Generation Guide</div>
-          <p style="font-size:14px; color:var(--muted);">
-            "When scaling outbound sales pipelines, teams often rely on comprehensive <a href="#" style="color:var(--teal); font-weight:700;">B2B lead generation guides</a> to standardise their outreach."
+
+          <div class="example-anchor">
+            Anchor Text: B2B Lead Generation Guide
+          </div>
+
+          <p
+            style="font-size:14px;color:var(--muted);">
+
+            "When scaling outbound sales pipelines, teams often
+            rely on comprehensive
+
+            <a
+              href="#"
+              style="color:var(--teal);font-weight:700;">
+              B2B lead generation guides
+            </a>
+
+            to standardise their outreach."
+
           </p>
-          <div style="font-size:12px; color:var(--teal); margin-top:10px; font-weight:600;">Target URL: https://yoursite.com/b2b-lead-generation</div>
+
+          <div
+            style="font-size:12px;color:var(--teal);margin-top:10px;font-weight:600;">
+
+            Target URL:
+            https://yoursite.com/b2b-lead-generation
+
+          </div>
+
         </div>
 
         <div class="example-card">
-          <div class="example-anchor">Anchor Text: SaaS Growth Strategies</div>
-          <p style="font-size:14px; color:var(--muted);">
-            "Reducing churn rate is key to sustainable revenue. Implementing proven <a href="#" style="color:var(--teal); font-weight:700;">SaaS growth strategies</a> ensures long-term expansion."
+
+          <div class="example-anchor">
+            Anchor Text: SaaS Growth Strategies
+          </div>
+
+          <p
+            style="font-size:14px;color:var(--muted);">
+
+            "Reducing churn rate is key to sustainable revenue.
+            Implementing proven
+
+            <a
+              href="#"
+              style="color:var(--teal);font-weight:700;">
+              SaaS growth strategies
+            </a>
+
+            ensures long-term expansion."
+
           </p>
-          <div style="font-size:12px; color:var(--teal); margin-top:10px; font-weight:600;">Target URL: https://yoursite.com/saas-growth-strategies</div>
+
+          <div
+            style="font-size:12px;color:var(--teal);margin-top:10px;font-weight:600;">
+
+            Target URL:
+            https://yoursite.com/saas-growth-strategies
+
+          </div>
+
         </div>
 
         <div class="example-card">
-          <div class="example-anchor">Anchor Text: Content Marketing ROI</div>
-          <p style="font-size:14px; color:var(--muted);">
-            "Measuring organic attribution requires checking metrics listed in our analysis of <a href="#" style="color:var(--teal); font-weight:700;">content marketing ROI</a>."
+
+          <div class="example-anchor">
+            Anchor Text: Content Marketing ROI
+          </div>
+
+          <p
+            style="font-size:14px;color:var(--muted);">
+
+            "Measuring organic attribution requires checking
+            metrics listed in our analysis of
+
+            <a
+              href="#"
+              style="color:var(--teal);font-weight:700;">
+              content marketing ROI
+            </a>
+
+            ."
+
           </p>
-          <div style="font-size:12px; color:var(--teal); margin-top:10px; font-weight:600;">Target URL: https://yoursite.com/content-marketing-roi</div>
+
+          <div
+            style="font-size:12px;color:var(--teal);margin-top:10px;font-weight:600;">
+
+            Target URL:
+            https://yoursite.com/content-marketing-roi
+
+          </div>
+
         </div>
+
       </div>
+
     </div>
 
   </div>
+
 </section>
 
-<!-- DARK STATS BANNER -->
+<!-- =========================
+     DARK STATS BANNER
+========================= -->
+
 <section class="stats">
+
   <div class="container">
+
     <div class="stats-grid">
-      <div class="stat"><strong>₹300–₹1000</strong><span>flat payout per approved link</span></div>
-      <div class="stat"><strong>24–48 hrs</strong><span>fast UPI / bank transfer</span></div>
-      <div class="stat"><strong>∞</strong><span>no limit on monthly mentions</span></div>
+
+      <div class="stat">
+
+        <strong>
+          ₹300–₹1000
+        </strong>
+
+        <span>
+          flat payout per approved link
+        </span>
+
+      </div>
+
+      <div class="stat">
+
+        <strong>
+          24–48 hrs
+        </strong>
+
+        <span>
+          fast UPI / bank transfer
+        </span>
+
+      </div>
+
+      <div class="stat">
+
+        <strong>
+          ∞
+        </strong>
+
+        <span>
+          no limit on monthly mentions
+        </span>
+
+      </div>
+
     </div>
+
   </div>
+
 </section>
 
 </main>
 
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer class="container">
-  <div>© 2026 Reference Rewards</div>
-  <div>Relevant references only · Subject to approval</div>
+
+  <div>
+    © 2026 Reference Rewards
+  </div>
+
+  <div>
+    Relevant references only · Subject to approval
+  </div>
+
 </footer>
 
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
 <script>
-/* Dynamic Tab Switcher */
-function switchTab(tabId, btnElement) {
-  const contents = document.querySelectorAll('.dynamic-tab-content');
-  contents.forEach(content => content.classList.remove('active'));
 
-  const buttons = document.querySelectorAll('.tab-btn');
-  buttons.forEach(btn => btn.classList.remove('active'));
+/* =========================
+   DYNAMIC TAB SWITCHER
+========================= */
 
-  document.getElementById(tabId).classList.add('active');
-  btnElement.classList.add('active');
+function switchTab(tabId, btnElement){
+
+  const contents =
+    document.querySelectorAll('.dynamic-tab-content');
+
+  contents.forEach(function(content){
+    content.classList.remove('active');
+  });
+
+  const buttons =
+    document.querySelectorAll('.tab-btn');
+
+  buttons.forEach(function(btn){
+    btn.classList.remove('active');
+  });
+
+  const selectedTab =
+    document.getElementById(tabId);
+
+  if(selectedTab){
+    selectedTab.classList.add('active');
+  }
+
+  if(btnElement){
+    btnElement.classList.add('active');
+  }
+
 }
 
-/* Range Calculator Logic */
+/* =========================
+   RANGE CALCULATOR
+========================= */
+
 const trafficTiers = [
-  { label: "Traffic 2,000 + DA 30 =", rate: 200 },
-  { label: "Traffic 18,000+ DA 30 =", rate: 500 },
-  { label: "Traffic 25,000+ DA 40 =", rate: 700 },
-  { label: "Traffic 50,000+ DA 40 =", rate: 1200 },
-  { label: "Traffic 100,000+ DA 40 =", rate: 2000 }
+
+  {
+    label:"Traffic 2,000 + DA 30 =",
+    rate:200
+  },
+
+  {
+    label:"Traffic 18,000+ DA 30 =",
+    rate:500
+  },
+
+  {
+    label:"Traffic 25,000+ DA 40 =",
+    rate:700
+  },
+
+  {
+    label:"Traffic 50,000+ DA 40 =",
+    rate:1200
+  },
+
+  {
+    label:"Traffic 100,000+ DA 40 =",
+    rate:2000
+  }
+
 ];
 
 let currentIncome = 0;
+
 let debounceTimer;
 
-function updateSliderBackground(slider) {
-  const percentage = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
-  slider.style.background = `linear-gradient(to right, #00A896 ${percentage}%, #dce8e5 ${percentage}%)`;
+/* =========================
+   SLIDER BACKGROUND
+========================= */
+
+function updateSliderBackground(slider){
+
+  const percentage =
+    ((slider.value - slider.min) /
+    (slider.max - slider.min)) * 100;
+
+  slider.style.background =
+    `linear-gradient(
+      to right,
+      #00A896 ${percentage}%,
+      #dce8e5 ${percentage}%
+    )`;
+
 }
 
-function triggerCalculation() {
+/* =========================
+   CALCULATION TRIGGER
+========================= */
+
+function triggerCalculation(){
+
   clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(() => {
+
+  debounceTimer = setTimeout(function(){
+
     calculateAndCelebrate();
-  }, 50);
+
+  },50);
+
 }
 
-function calculateAndCelebrate() {
-  const tierSlider = document.getElementById('cardTier');
-  const blogsSlider = document.getElementById('cardBlogs');
+/* =========================
+   CALCULATE INCOME
+========================= */
 
-  const tierIndex = parseInt(tierSlider.value) || 0;
-  const blogs = parseInt(blogsSlider.value) || 1;
+function calculateAndCelebrate(){
 
-  const currentTier = trafficTiers[tierIndex];
-  const targetTotal = currentTier.rate * Math.max(1, blogs);
+  const tierSlider =
+    document.getElementById('cardTier');
+
+  const blogsSlider =
+    document.getElementById('cardBlogs');
+
+  const tierIndex =
+    parseInt(tierSlider.value) || 0;
+
+  const blogs =
+    parseInt(blogsSlider.value) || 1;
+
+  const currentTier =
+    trafficTiers[tierIndex];
+
+  const targetTotal =
+    currentTier.rate *
+    Math.max(1,blogs);
 
   updateSliderBackground(tierSlider);
+
   updateSliderBackground(blogsSlider);
 
-  document.getElementById('trafficBadge').innerText = `${currentTier.label} ₹${currentTier.rate}`;
-  document.getElementById('blogsBadge').innerText = `${blogs} Blog${blogs > 1 ? 's' : ''}`;
+  document.getElementById('trafficBadge').innerText =
+    `${currentTier.label} ₹${currentTier.rate}`;
 
-  animateValue('cardIncomeVal', currentIncome, targetTotal, 300);
-  currentIncome = targetTotal;
+  document.getElementById('blogsBadge').innerText =
+    `${blogs} Blog${blogs > 1 ? 's' : ''}`;
+
+  animateValue(
+    'cardIncomeVal',
+    currentIncome,
+    targetTotal,
+    300
+  );
+
+  currentIncome =
+    targetTotal;
+
 }
 
-function animateValue(id, start, end, duration) {
-  const obj = document.getElementById(id);
+/* =========================
+   ANIMATE NUMBER
+========================= */
+
+function animateValue(
+  id,
+  start,
+  end,
+  duration
+){
+
+  const obj =
+    document.getElementById(id);
+
   let startTimestamp = null;
-  const step = (timestamp) => {
-    if (!startTimestamp) startTimestamp = timestamp;
-    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-    const value = Math.floor(progress * (end - start) + start);
-    obj.innerHTML = '₹' + value.toLocaleString('en-IN');
-    if (progress < 1) {
-      window.requestAnimationFrame(step);
+
+  const step = function(timestamp){
+
+    if(!startTimestamp){
+      startTimestamp = timestamp;
     }
+
+    const progress =
+      Math.min(
+        (timestamp - startTimestamp) /
+        duration,
+        1
+      );
+
+    const value =
+      Math.floor(
+        progress * (end - start) + start
+      );
+
+    obj.innerHTML =
+      '₹' +
+      value.toLocaleString('en-IN');
+
+    if(progress < 1){
+
+      window.requestAnimationFrame(step);
+
+    }
+
   };
+
   window.requestAnimationFrame(step);
+
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  calculateAndCelebrate();
-});
+/* =========================
+   INITIALIZE CALCULATOR
+========================= */
+
+window.addEventListener(
+  'DOMContentLoaded',
+  function(){
+
+    calculateAndCelebrate();
+
+  }
+);
+
 </script>
 
 </body>
 </html>
+```
+
+ The five requested destinations are now wired directly into the code:
+
+ - **Email Us** → `jamesmac2550@gmail.com`
+- **Connect me with linkedin** → your LinkedIn profile
+- **Join Linkedin Group** → your LinkedIn group
+- **Submit your request now** → your Google Form
+- **Get to know Your first citation domain now →** → your LinkedIn profile
+
+ You can save the code as `index.html` and open it directly in a browser.
